@@ -60,7 +60,8 @@
             <div class="flex flex-wrap gap-x-[20px] gap-y-[30px] w-[100%] ">
                 <div class="flex flex-col gap-[10px] w-[100%] ">
                     <label for="" class="flex items-center gap-[5px] text-[14] text-[#898989]">Postback URL <div class="text-[#F23765] mt-[-2px]">*</div></label>
-                    <input type="text" name="postback" required class="flex px-[15px] py-[15px] rounded-[5px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none" value="{{ $appData->postback }}">
+                    <input type="url" name="postback" required class="flex px-[15px] py-[15px] rounded-[5px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none" value="{{ $appData->postback }}" id="postbackInput" onkeyup="checkPostbackParams()">
+                    <div id="paramCheckMessage" class="text-[12px] text-[#A1A1A1] leading-[15px]"></div>
                     <div class="text-[12px] text-[#A1A1A1] leading-[15px]">Whenever a user completes an offer, we will send a request to this URL with all the necessary data to facilitate the delivery of virtual currency to your users. Refer to the <a class="text-[#D272D2] font-semibold" target="_blank" href="{{ route('documentations') }}">postback documentation</a> to configure your postback URL.  </div>
                 </div>
             </div>
@@ -70,4 +71,24 @@
         </div>
     </form>
 </div>
+<script>
+    function checkPostbackParams() {
+        let input = document.getElementById("postbackInput").value;
+        let message = document.getElementById("paramCheckMessage");
+        
+        // Define the parameters you want to check
+        let params = ["{user_id}", "{reward}", "{status}", "{payout}", "{offer_id}", "{offer_name}", "{goal}", "{device_type}", "{geo}", "{ip}", "{os}", "{user_agent}", "{click_id}", "{app_id}", "{tracking_id}"];
+        
+        // Check if any parameter exists in the input value
+        let foundParams = params.filter(param => input.includes(param));
+
+        if (foundParams.length > 0) {
+            message.innerText = "";
+            message.style.color = "green";
+        } else {
+            message.innerText = "No tracking parameters found.";
+            message.style.color = "red";
+        }
+    }
+</script>
 @stop

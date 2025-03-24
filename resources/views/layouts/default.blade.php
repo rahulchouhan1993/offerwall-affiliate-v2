@@ -5,7 +5,7 @@
         <meta name="Googlebot-News" content="noindex, nnofollow">
 	    <meta name="googlebot" content="noindex, nofollow">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>XXX-Affiliate | {{ $pageTitle }}</title>
+        <title>OFFA-Affiliate | {{ $pageTitle }}</title>
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <!-- Fonts -->
         <link rel="icon" type="image/x-icon" href="/images/favicon.png">

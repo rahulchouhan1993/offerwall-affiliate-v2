@@ -6,7 +6,7 @@
         <div class="max-w-[450px] w-[100%] px-[20px] py-[35px] md:px-[40px] md:py-[65px] bg-[#fff] rounded-[10px] md:rounded-[15px]">
         <div class="logo1 flex items-center justify-center mb-[20px] md:mb-[50px]">
                 <a href="#">
-                    <img src="images/logo-offerwall-login.png" alt="logo">
+                    <img src="images/logo.png?3545" alt="logo">
                 </a>
             </div>
             <script>
@@ -18,7 +18,7 @@
                     toastr.error("{{ session('error') }}");
                 @endif
             </script>
-            <h2 class="text-[25px] leading-[30px] md:text-[28px] md:leading-[30px] lg:text-[30px] lg:leading-[32px] font-[700] text-[#1A1A1A] text-center"> Log in to get started! mks </h2>
+            <h2 class="text-[25px] leading-[30px] md:text-[28px] md:leading-[30px] lg:text-[30px] lg:leading-[32px] font-[700] text-[#1A1A1A] text-center"> Log in to get started! </h2>
             <div class="mt-[30px] md:mt-[45px] lg:mt-[55px]">
                 <form method="post">
                     @csrf

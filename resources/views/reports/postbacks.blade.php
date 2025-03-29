@@ -58,7 +58,7 @@
             </div>
             <div class="flex flex-wrap md:flex-nowrap items-start gap-[10px] w-[100%] xl:w-[33%]">
                 <div class="w-[100%]">
-                    <input type="text" name="goal"  class="goal-postback-filter w-[100%] bg-[#F7F7F7] px-[15px] py-[12px] text-[12px] font-[600] text-[#000] 1border-[1px] 1border-[#E6E6E6] rounded-[10px] hover:outline-none focus:outline-none" placeholder="Goal Name" value="{{ $requestedParams['goal'] ?? '' }}">
+                    <input type="text" name="goal"  class="goal-postback-filter w-[100%] bg-[#F7F7F7] px-[15px] py-[14px] text-[12px] font-[600] text-[#000] 1border-[1px] 1border-[#E6E6E6] rounded-[10px] hover:outline-none focus:outline-none" placeholder="Goal Name" value="{{ $requestedParams['goal'] ?? '' }}">
                 </div>
             </div>
                    </div>

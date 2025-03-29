@@ -66,8 +66,8 @@
                          <option value="3" @if($requestedParams['status'] ?? '' == '3') selected @endif>Declined</option>
                          <option value="5" @if($requestedParams['status'] ?? '' == '5') selected @endif>Hold</option>
                       </select> --}}
-                      <input name="goal" class="w-[100%] xl:w-[25%] bg-[#F6F6F6] px-[15px] py-[12px] text-[14px] font-[600] text-[#4D4D4D] border-[1px] border-[#E6E6E6] rounded-[4px] hover:outline-none focus:outline-none" placeholder="Goal" value="{{ $requestedParams['goal'] ?? '' }}">
-                      {{-- <input name="smartlink" class="w-[100%] xl:w-[25%] bg-[#F6F6F6] px-[15px] py-[12px] text-[14px] font-[600] text-[#4D4D4D] border-[1px] border-[#E6E6E6] rounded-[4px] hover:outline-none focus:outline-none" placeholder="Smart Link" value="{{ $filterOptions['smartLink'] }}"> --}}
+                      <input name="goal" class="w-[100%] xl:w-[25%] bg-[#F6F6F6] px-[15px] py-[12px] text-[14px] font-[600] text-[#4D4D4D] border-[1px] border-[#E6E6E6] rounded-[10px] hover:outline-none focus:outline-none" placeholder="Goal" value="{{ $requestedParams['goal'] ?? '' }}">
+                      {{-- <input name="smartlink" class="w-[100%] xl:w-[25%] bg-[#F6F6F6] px-[15px] py-[12px] text-[14px] font-[600] text-[#4D4D4D] border-[1px] border-[#E6E6E6] rounded-[10px] hover:outline-none focus:outline-none" placeholder="Smart Link" value="{{ $filterOptions['smartLink'] }}"> --}}
                    </div>
                    <div class="w-[100%] xl:w-[20%] flex items-center justify-start xl:justify-between gap-[10px]">
                       <button

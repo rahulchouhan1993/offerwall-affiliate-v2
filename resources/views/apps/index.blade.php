@@ -4,9 +4,9 @@
     <div class="bg-[#fff] p-[15px] md:p-[20px] rounded-[10px] mb-[20px]">
        <div class="flex items-center justify-between gap-[25px] w-[100%]  mb-[15px]">
           <h2 class="text-[20px] text-[#1A1A1A] font-[600]">My Apps</h2>
-          <a href="{{ route('apps.add') }}" class="flex items-center justify-center gap-[13px] w-[130px] lg:w-[149px] bg-[#D272D2] px-[20px] py-[10px] w-[100px] rounded-[4px] text-[14px] font-[500] text-[#fff] text-center">
+          <a href="{{ route('apps.add') }}" class="flex items-center justify-center gap-[13px] w-[130px] lg:w-[149px] bg-[#49fb53] px-[20px] py-[10px] w-[100px] rounded-[4px] text-[14px] font-[500] text-[#000] text-center">
              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7.375 0.375C7.72 0.375 8 0.655 8 1V6.375H13.375C13.5408 6.375 13.6997 6.44085 13.8169 6.55806C13.9342 6.67527 14 6.83424 14 7C14 7.16576 13.9342 7.32473 13.8169 7.44194C13.6997 7.55915 13.5408 7.625 13.375 7.625H8V13C8 13.1658 7.93415 13.3247 7.81694 13.4419C7.69973 13.5592 7.54076 13.625 7.375 13.625C7.20924 13.625 7.05027 13.5592 6.93306 13.4419C6.81585 13.3247 6.75 13.1658 6.75 13V7.625H1.375C1.20924 7.625 1.05027 7.55915 0.933058 7.44194C0.815848 7.32473 0.75 7.16576 0.75 7C0.75 6.83424 0.815848 6.67527 0.933058 6.55806C1.05027 6.44085 1.20924 6.375 1.375 6.375H6.75V1C6.75 0.655 7.03 0.375 7.375 0.375Z" fill="white"/>
+                <path d="M7.375 0.375C7.72 0.375 8 0.655 8 1V6.375H13.375C13.5408 6.375 13.6997 6.44085 13.8169 6.55806C13.9342 6.67527 14 6.83424 14 7C14 7.16576 13.9342 7.32473 13.8169 7.44194C13.6997 7.55915 13.5408 7.625 13.375 7.625H8V13C8 13.1658 7.93415 13.3247 7.81694 13.4419C7.69973 13.5592 7.54076 13.625 7.375 13.625C7.20924 13.625 7.05027 13.5592 6.93306 13.4419C6.81585 13.3247 6.75 13.1658 6.75 13V7.625H1.375C1.20924 7.625 1.05027 7.55915 0.933058 7.44194C0.815848 7.32473 0.75 7.16576 0.75 7C0.75 6.83424 0.815848 6.67527 0.933058 6.55806C1.05027 6.44085 1.20924 6.375 1.375 6.375H6.75V1C6.75 0.655 7.03 0.375 7.375 0.375Z" fill="#000"/>
              </svg>
              New App
             </a>
@@ -51,14 +51,14 @@
                     <td class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left whitespace-nowrap ">{{ date('d M Y',strtotime($apps->created_at)) }}</td>
                     <td class="w-[130px] text-[14px] font-[500] text-[#5E72E4] px-[10px] py-[10px] text-left whitespace-nowrap ">
                        <div class="flex items-center justify-end gap-[10px]">
-                          <a title="Edit" href="{{ route('apps.add',['id'=>$apps->id]) }}" class="flex items-center justify-center w-[35px] bg-[#FFF3ED] py-[10px] w-[100px] border border-[#FED5C3] rounded-[4px] text-[14px] font-[500] text-[#D272D2] text-center">
+                          <a title="Edit" href="{{ route('apps.add',['id'=>$apps->id]) }}" class="flex items-center justify-center w-[35px] bg-[#49fb53] py-[10px] w-[100px] border border-[#49fb53] rounded-[4px] text-[14px] font-[500] text-[#000] text-center">
                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 16 16" fill="none">
-                              <path d="M8.29289 3.70711L1 11V15H5L12.2929 7.70711L8.29289 3.70711Z" fill="#D272D2"/>
-                              <path d="M9.70711 2.29289L13.7071 6.29289L15.1716 4.82843C15.702 4.29799 16 3.57857 16 2.82843C16 1.26633 14.7337 0 13.1716 0C12.4214 0 11.702 0.297995 11.1716 0.828428L9.70711 2.29289Z" fill="#D272D2"/>
+                              <path d="M8.29289 3.70711L1 11V15H5L12.2929 7.70711L8.29289 3.70711Z" fill="#000"/>
+                              <path d="M9.70711 2.29289L13.7071 6.29289L15.1716 4.82843C15.702 4.29799 16 3.57857 16 2.82843C16 1.26633 14.7337 0 13.1716 0C12.4214 0 11.702 0.297995 11.1716 0.828428L9.70711 2.29289Z" fill="#000"/>
                            </svg> 
                            </a>
                            @if( $apps->status==1 && $apps->affiliate_status==1)
-                           <a title="Integration" href="{{ route('apps.integration',['id'=>$apps->id]) }}" class="flex items-center justify-center w-[35px] bg-[#FFF3ED] py-[10px] w-[100px] border border-[#FED5C3] rounded-[4px] text-[14px] font-[500] text-[#D272D2] text-center">
+                           <a title="Integration" href="{{ route('apps.integration',['id'=>$apps->id]) }}" class="flex items-center justify-center w-[35px] bg-[#49fb53] py-[10px] w-[100px] border border-[#49fb53] rounded-[4px] text-[14px] font-[500] text-[#000] text-center">
                            <svg xmlns="http://www.w3.org/2000/svg"  width="14" height="14" viewBox="0 0 16 16" fill="none">
                               <path d="M8.01005 0.858582L6.01005 14.8586L7.98995 15.1414L9.98995 1.14142L8.01005 0.858582Z" fill="#D272D2"/>
                               <path d="M12.5 11.5L11.0858 10.0858L13.1716 8L11.0858 5.91422L12.5 4.5L16 8L12.5 11.5Z" fill="#D272D2"/>

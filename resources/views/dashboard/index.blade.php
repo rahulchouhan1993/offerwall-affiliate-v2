@@ -3,13 +3,13 @@
 <div class="px-[15px] py-[15px]  md:px-[20px] md:py-[20px] lg:px-[30px] lg:py-[30px]">
     <div class="flex flex-wrap md:flex-nowrap items-center gap-[15px] mb-[30px]">
         <div class="pinkbg flex flex-col justify-center  items-start gap-[5px] w-[100%] sm:w-[150px] md:w-[180px] lg:w-[200px] xl:w-[300px] 2xl:w-[365px] h-[130px]  rounded-[7px] lg:rounded-[10px] px-[15px] py-[15px] md:px-[20px] md:py-[20px] lg:px-[30px] lg:py-[30px] activeApps">
-            <h2 class="text-[18px] font-[500] text-[#fff]">Active Apps</h2>
-            <h3 class="text-[38px] font-[700] text-[#fff]">{{ $activeApps ?? 0 }}</h3>
+            <h2 class="text-[18px] font-[500] text-[#000]">Active Apps</h2>
+            <h3 class="text-[38px] font-[700] text-[#000]">{{ $activeApps ?? 0 }}</h3>
         </div>
 
         <div class="orangebg flex flex-col justify-center bg-[#EF7947] items-start gap-[5px]  w-[100%] sm:w-[200px] md:w-[265px] lg:w-[365px] h-[130px]  rounded-[7px] lg:rounded-[10px] px-[30px] py-[30px] activeApps">
-            <h2 class="text-[18px] font-[500] text-[#fff]">Revenue</h2>
-            <h3 class="text-[38px] font-[700] text-[#fff]">$ {{ $totalPayouts ?? 0 }}</h3>
+            <h2 class="text-[18px] font-[500] text-[#000]">Revenue</h2>
+            <h3 class="text-[38px] font-[700] text-[#000]">$ {{ $totalPayouts ?? 0 }}</h3>
         </div>
     </div>
 
@@ -18,7 +18,7 @@
             <h2 class="text-[20px] text-[#1A1A1A] font-[600]">Conversion Matrix</h2>
             <div x-data="select" class="flex flex-wrap w-[100%] sm:w-[190px] md-flex-nowrap items-start gap-[15px] justify-end " @click.outside="open = false">
                 <div class="relative w-[100%] ">
-                    <input name="range" class="dateRange w-[100%] bg-[#F6F6F6] px-[12px] py-[12px] text-[13px] font-[600] text-[#4D4D4D] border-[1px] border-[#E6E6E6] rounded-[4px] hover:outline-none focus:outline-none" type="text" value="">
+                    <input name="range" class="dateRange w-[100%] lg:w-[100%] bg-[#F7F7F7] px-[15px] py-[12px] text-[13px] font-[600] text-[#000] 1border-[1px] 1border-[#ccc] rounded-[10px] hover:outline-none focus:outline-none" type="text" value="">
                 </div>
             </div>
         </div>
@@ -52,19 +52,19 @@
                             {
                                 label: 'Conversions',
                                 data: data.conversionData, // Conversion Data
-                                borderColor: '#d272d2', // Deep Purple Border
-                                backgroundColor: 'rgba(210, 114, 210, 0.2)', // Soft Purple Fill
+                                borderColor: '#3BDC40', // Deep Purple Border
+                                backgroundColor: '#75FF76', // Soft Purple Fill
                                 borderWidth: 2,
                                 tension: 0.4, // Smooth line effect
                                 fill: true,
                                 pointRadius: 5,
-                                pointBackgroundColor: '#d272d2'
+                                pointBackgroundColor: '#75FF76'
                             },
                             {
                                 label: 'Clicks',
                                 data: data.clickData, // Clicks Data
-                                borderColor: '#ff6384', // Red Border
-                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                borderColor: '#8CCEE2', // Red Border
+                                backgroundColor: '#7BB7C9',
                                 borderWidth: 2,
                                 tension: 0.4,
                                 fill: true,

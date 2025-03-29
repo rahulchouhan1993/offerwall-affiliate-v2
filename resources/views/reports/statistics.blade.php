@@ -4,7 +4,7 @@
     <div class="bg-[#fff] p-[15px] md:p-[20px] rounded-[10px] mb-[20px]">
        <div class="flex items-center justify-between gap-[25px] w-[100%]  mb-[15px]">
           <h2 class="text-[20px] text-[#1A1A1A] font-[600]">Graph & Statistics</h2>
-          <button class="w-[100px] md:w-[110px] lg:w-[140px] bg-[#D272D2] px-[20px] py-[10px] w-[100px] rounded-[4px] text-[14px] font-[500] text-[#fff] text-center" id="exportCsvBtn">Export</button>
+          <button class="w-[100px] md:w-[110px] lg:w-[140px] bg-[#49FB53] px-[20px] py-[10px] w-[100px] rounded-[4px] text-[14px] font-[500] text-[#000] text-center" id="exportCsvBtn">Export</button>
        </div>
        <form method="get" id="filterStats" >
        <div class="flex flex-col items-center justify-center gap-[15px]">
@@ -37,7 +37,7 @@
              </div>
              <div class="w-[100%] flex flex-col lg:flex-row items-start lg:items-center justify-start gap-[10px]">
                 <label class="min-w-[160px] w-[10%] text-[14px] font-[500] text-[#898989] ">Range:</label>
-                <input name="range" class="dateRange-report w-[100%] bg-[#F6F6F6] px-[15px] py-[12px] text-[12px] font-[600] text-[#4D4D4D] border-[1px] border-[#E6E6E6] rounded-[4px] hover:outline-none focus:outline-none" type="text" value="{{ $requestedParams['range'] ?? '' }}" />
+                <input name="range" class="dateRange-report w-[100%] bg-[#F7F7F7] px-[15px] py-[12px] text-[12px] font-[600] text-[#000] 1border-[1px] 1border-[#E6E6E6] rounded-[10px] hover:outline-none focus:outline-none" type="text" value="{{ $requestedParams['range'] ?? '' }}" />
              </div>
             
              <div class="w-[100%] flex flex-wrap lg:flex-nowrap items-start xl:items-center justify-between gap-[10px]">
@@ -57,11 +57,11 @@
                       
                    </div>
                    <div class="w-[100%] lg:w-[100%] xl:w-[24%] 2xl:w-[24%] flex items-center justify-end  gap-[10px]">
-                   <a href="javascript:void(0);" class="addCustomFilter w-[90px] xl:w-[120px] bg-[#D272D2] px-[20px] py-[11px] w-[100px] rounded-[4px] text-[14px] font-[500] text-[#fff] text-center" >Add</a>   
+                   <a href="javascript:void(0);" class="addCustomFilter w-[90px] xl:w-[120px] bg-[#79B8C7] px-[20px] py-[11px] w-[100px] rounded-[4px] text-[14px] font-[500] text-[#000] text-center" >Add</a>   
                    <button
-                         class="w-[140px] bg-[#D272D2] px-[20px] py-[11px] w-[90px] xl:w-[120px] rounded-[4px] text-[14px] font-[500] text-[#fff] text-center" type="submit">Apply</button>
+                         class="w-[140px] bg-[#49FB53] px-[20px] py-[11px] w-[90px] xl:w-[120px] rounded-[4px] text-[14px] font-[500] text-[#000] text-center" type="submit">Apply</button>
                       <a href="{{ route('report.statistics') }}"
-                         class="w-[140px] bg-[#F5EAF5] px-[20px] py-[11px] w-[90px] xl:w-[120px] border border-[#F5EAF5] rounded-[4px] text-[14px] font-[500] text-[#D272D2] text-center" >Clear</a>
+                         class="w-[140px] bg-[#536861] px-[20px] py-[11px] w-[90px] xl:w-[120px] border border-[#536861] rounded-[4px] text-[14px] font-[500] text-[#fff] text-center" >Clear</a>
                    </div>
                 </div>
              </div>
@@ -102,29 +102,29 @@
                 class="w-[100%] border-collapse border-spacing-0 rounded-[10px] border-separate border border-[#E6E6E6]">
                 <tr>
                    <th
-                      class="bg-[#F6F6F6] rounded-tl-[10px] text-[14px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left whitespace-nowrap ">
+                      class="bg-[#7FB5CB] rounded-tl-[10px] text-[14px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap ">
                       {{ $headingArray[$requestedParams['groupBy'] ?? ''] ?? 'Hour' }}
                    </th>
    
                    <th
-                      class="bg-[#F6F6F6] text-[14px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left whitespace-nowrap">
+                      class="bg-[#7FB5CB] text-[14px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap">
                       Clicks
                    </th>
                    <th
-                      class="bg-[#F6F6F6] text-[14px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left whitespace-nowrap">
+                      class="bg-[#7FB5CB] text-[14px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap">
                       Conversions
                    </th>
                    <th
-                      class="bg-[#F6F6F6] text-[14px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left whitespace-nowrap">
+                      class="bg-[#7FB5CB] text-[14px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap">
                       CVR
                    </th>
                    <th
-                      class="bg-[#F6F6F6] text-[14px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left whitespace-nowrap">
+                      class="bg-[#7FB5CB] text-[14px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap">
                       EPC
                    </th>
                    
                    <th
-                      class="bg-[#F6F6F6] text-[14px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left whitespace-nowrap">
+                      class="bg-[#7FB5CB] text-[14px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap rounded-tr-[10px]">
                       Revenue
                    </th>
                 </tr>

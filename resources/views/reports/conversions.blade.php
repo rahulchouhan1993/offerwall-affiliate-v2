@@ -9,7 +9,7 @@
        <div class="flex items-center justify-between gap-[25px] w-[100%]  mb-[15px]">
           <h2 class="text-[20px] text-[#1A1A1A] font-[600]">Overview</h2>
           <button
-             class="w-[140px] bg-[#D272D2] px-[20px] py-[10px] w-[100px] rounded-[4px] text-[14px] font-[500] text-[#fff] text-center" id="exportCsvBtn">Export</button>
+             class="w-[140px] bg-[#49FB53] px-[20px] py-[10px] w-[100px] rounded-[4px] text-[14px] font-[500] text-[#000] text-center" id="exportCsvBtn">Export</button>
        </div>
        <div class="flex flex-col items-center justify-center gap-[15px]">
          <form method="get" id="filterConversions">
@@ -27,11 +27,11 @@
             </div>
              <div class="w-[100%] flex flex-col lg:flex-row items-start lg:items-center justify-start gap-[10px]">
                 <label class="min-w-[160px] w-[100%] md:w-[10%] text-[14px] font-[500] text-[#898989] ">Range:</label>
-                <input type="text" name="range" class="dateRange-report w-[100%] bg-[#F6F6F6] px-[15px] py-[12px] text-[12px] font-[600] text-[#4D4D4D] border-[1px] border-[#E6E6E6] rounded-[4px] hover:outline-none focus:outline-none" placeholder="2024-12-10" value="{{ $requestedParams['range'] }}">
+                <input type="text" name="range" class="dateRange-report w-[100%] bg-[#F7F7F7] px-[15px] py-[12px] text-[12px] font-[600] text-[#000] 1border-[1px] 1border-[#E6E6E6] rounded-[10px] hover:outline-none focus:outline-none" placeholder="2024-12-10" value="{{ $requestedParams['range'] }}">
              </div>
              <div class="w-[100%] flex flex-col lg:flex-row items-start lg:items-center justify-start gap-[10px]">
                 <label class="min-w-[160px] w-[10%] text-[14px] font-[500] text-[#898989] ">Country:</label>
-                <select name="country" class="countryOptions w-[100%] lg:w-[90%] bg-[#F6F6F6] px-[15px] py-[12px] text-[14px] font-[600] text-[#4D4D4D] border-[1px] border-[#E6E6E6] rounded-[4px] hover:outline-none focus:outline-none">
+                <select name="country" class="countryOptions w-[100%] lg:w-[90%] bg-[#] px-[15px] py-[12px] text-[14px] font-[600] text-[#4D4D4D] border-[1px] border-[#E6E6E6] rounded-[4px] hover:outline-none focus:outline-none">
                   <option value="">Select</option>
                   @foreach ($allCountry as $countryName =>$countryCode)
                      <option value="{{ $countryCode }}" @if(isset($requestedParams['country']) && $requestedParams['country'] == $countryCode) selected @endif>{{ $countryName }}</option>
@@ -71,9 +71,9 @@
                    </div>
                    <div class="w-[100%] xl:w-[20%] flex items-center justify-start xl:justify-between gap-[10px]">
                       <button
-                         class="w-[140px] bg-[#D272D2] px-[20px] py-[11px] w-[100px] rounded-[4px] text-[14px] font-[500] text-[#fff] text-center">Apply</button>
+                         class="w-[140px] bg-[#49FB53] px-[20px] py-[11px] w-[100px] rounded-[4px] text-[14px] font-[500] text-[#000] text-center">Apply</button>
                       <a href="{{ route('report.conversions') }}"
-                         class="w-[140px] bg-[#F5EAF5] px-[20px] py-[11px] w-[100px] border border-[#F5EAF5] rounded-[4px] text-[14px] font-[500] text-[#D272D2] text-center">Clear</a>
+                         class="w-[140px] bg-[#536861] px-[20px] py-[11px] w-[100px] border border-[#F5EAF5] rounded-[4px] text-[14px] font-[500] text-[#fff] text-center">Clear</a>
                    </div>
                 </div>
              </div>
@@ -107,59 +107,59 @@
                 class="w-[100%] border-collapse border-spacing-0 rounded-[10px] border-separate border border-[#E6E6E6]">
                 <tr>
                   <th
-                      class="bg-[#F6F6F6] rounded-tl-[10px] text-[10px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left whitespace-nowrap ">
+                      class="bg-[#7FB5CB] rounded-tl-[10px] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap ">
                       Click Id
                    </th>
                    <th
-                      class=" whitespace-normal breakword bg-[#F6F6F6] rounded-tr-[10px] text-[10px] text-center font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left">
+                      class=" whitespace-normal breakword bg-[#7FB5CB]  text-[10px] text-center font-[500] text-[#fff] px-[10px] py-[13px] text-left">
                       Conversion Id
                    </th>
                    <th
-                      class="bg-[#F6F6F6] rounded-tl-[10px] text-[10px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left whitespace-nowrap ">
+                      class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap ">
                       Click Date
                    </th>
                    <th
-                      class="bg-[#F6F6F6] rounded-tl-[10px] text-[10px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left whitespace-nowrap ">
+                      class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap ">
                       Conversion Date
                    </th>
                    <th
-                      class="bg-[#F6F6F6] text-[10px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left whitespace-nowrap">
+                      class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap">
                       Status
                    </th>
                    <th
-                      class=" whitespace-normal breakword bg-[#F6F6F6] text-[10px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left">
+                      class=" whitespace-normal breakword bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left">
                       Offer
                    </th>
                    <th
-                      class=" whitespace-normal breakword bg-[#F6F6F6] text-[10px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left">
+                      class=" whitespace-normal breakword bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left">
                       Goal
                    </th>
                    <th
-                      class=" whitespace-normal breakword bg-[#F6F6F6] text-[10px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left">
+                      class=" whitespace-normal breakword bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left">
                       Payout
                    </th>
                    <th
-                      class="bg-[#F6F6F6] text-[10px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left whitespace-nowrap">
+                      class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap">
                       Country
                    </th>
                    <th
-                      class="bg-[#F6F6F6] text-[10px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left whitespace-nowrap">
+                      class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap">
                       IP
                    </th>
                    <th
-                      class="bg-[#F6F6F6] text-[10px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left whitespace-nowrap">
+                      class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap">
                       OS
                    </th>
                    <th
-                      class="bg-[#F6F6F6] text-[10px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left whitespace-nowrap">
+                      class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap">
                       Device
                    </th>
                    <th
-                      class="bg-[#F6F6F6] text-[10px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left whitespace-nowrap">
+                      class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap">
                       Mobile ISP
                    </th>
                    <th
-                      class="bg-[#F6F6F6] text-[10px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left whitespace-nowrap">
+                      class="bg-[#7FB5CB] rounded-tr-[10px] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap">
                       User Agent
                    </th>
                 </tr>

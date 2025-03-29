@@ -125,7 +125,7 @@
                    
                    <th
                       class="bg-[#F6F6F6] text-[14px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left whitespace-nowrap">
-                      Payout
+                      Revenue
                    </th>
                 </tr>
                 @if($allStatistics->isNotEmpty())

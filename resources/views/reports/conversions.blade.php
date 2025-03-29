@@ -269,32 +269,32 @@
     <div class="inline-flex gap-[8px]">
         {{-- Previous Page --}}
         @if ($allConversions->onFirstPage())
-            <a href="javascript:void(0);" class="group inline-flex gap-[8px] items-center bg-[#F5EAF5] border border-[#FED5C3] rounded-[5px] px-[10px] py-[4px] text-[12px] font-[600] text-[#D272D2] text-center hover:bg-[#D272D2] hover:text-[#fff]"> <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-               <path d="M5 1L1 5L5 9" stroke="#D272D2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:stroke-[#fff] "></path>
+            <a href="javascript:void(0);" class="btn group inline-flex gap-[8px] items-center bg-[#4EF953] border border-[#FED5C3] rounded-[5px] px-[10px] py-[4px] text-[12px] font-[600] text-[#000] text-center hover:bg-[#4EF953] hover:text-[#000]"> <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+               <path d="M5 1L1 5L5 9" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:stroke-[#000] "></path>
            </svg>  Previous</span>
         @else
-            <a href="{{ $allConversions->previousPageUrl() }}" class="group inline-flex gap-[8px] items-center bg-[#F5EAF5] border border-[#FED5C3] rounded-[5px] px-[10px] py-[4px] text-[12px] font-[600] text-[#D272D2] text-center hover:bg-[#D272D2] hover:text-[#fff]"> <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-               <path d="M5 1L1 5L5 9" stroke="#D272D2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:stroke-[#fff] "></path>
+            <a href="{{ $allConversions->previousPageUrl() }}" class="btn group inline-flex gap-[8px] items-center bg-[#4EF953] border border-[#FED5C3] rounded-[5px] px-[10px] py-[4px] text-[12px] font-[600] text-[#000] text-center hover:bg-[#4EF953] hover:text-[#000]"> <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+               <path d="M5 1L1 5L5 9" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:stroke-[#000] "></path>
            </svg> Previous</a>
         @endif
 
         {{-- Page Numbers --}}
         @for ($i = 1; $i <= $allConversions->lastPage(); $i++)
             @if ($i == $allConversions->currentPage())
-                <a href="javascript:void(0);" class="btn-active btn inline-flex gap-[8px] items-center bg-[#fff] border border-[#E6E6E6] rounded-[5px] px-[10px] py-[4px] text-[12px] font-[600] text-[#808080] text-center hover:bg-[#D272D2] hover:text-[#fff]">{{ $i }}</a>
+                <a href="javascript:void(0);" class="btn-active btn inline-flex gap-[8px] items-center bg-[#fff] border border-[#E6E6E6] rounded-[5px] px-[10px] py-[4px] text-[12px] font-[600] text-[#808080] text-center hover:bg-[#4EF953] hover:text-[#000]' : 'btn inline-flex gap-[8px] items-center bg-[#fff] border border-[#E6E6E6] rounded-[5px] px-[10px] py-[4px] text-[12px] font-[600] text-[#808080] text-center hover:bg-[#4EF953] hover:text-[#000]">{{ $i }}</a>
             @else
-                <a href="{{ $allConversions->url($i) }}" class="btn inline-flex gap-[8px] items-center bg-[#fff] border border-[#E6E6E6] rounded-[5px] px-[10px] py-[4px] text-[12px] font-[600] text-[#808080] text-center hover:bg-[#D272D2] hover:text-[#fff]">{{ $i }}</a>
+                <a href="{{ $allConversions->url($i) }}" class="btn-active btn inline-flex gap-[8px] items-center bg-[#fff] border border-[#E6E6E6] rounded-[5px] px-[10px] py-[4px] text-[12px] font-[600] text-[#808080] text-center hover:bg-[#4EF953] hover:text-[#000]' : 'btn inline-flex gap-[8px] items-center bg-[#fff] border border-[#E6E6E6] rounded-[5px] px-[10px] py-[4px] text-[12px] font-[600] text-[#808080] text-center hover:bg-[#4EF953] hover:text-[#000]">{{ $i }}</a>
             @endif
         @endfor
 
         {{-- Next Page --}}
         @if ($allConversions->hasMorePages())
-            <a class="group inline-flex gap-[5px] items-center bg-[#F5EAF5] border border-[#FED5C3] rounded-[5px] px-[10px] py-[4px] text-[12px] font-[600] text-[#D272D2] text-center hover:bg-[#D272D2] hover:text-[#fff]" href="{{ $allConversions->nextPageUrl() }}">Next <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-               <path d="M1 1L5 5L1 9" stroke="#D272D2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:stroke-[#fff] "></path>
+            <a class="btn group inline-flex gap-[8px] items-center bg-[#4EF953] border border-[#FED5C3] rounded-[5px] px-[10px] py-[4px] text-[12px] font-[600] text-[#000] text-center hover:bg-[#4EF953] hover:text-[#000]]" href="{{ $allConversions->nextPageUrl() }}">Next <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+               <path d="M1 1L5 5L1 9" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:stroke-[#000] "></path>
            </svg></a>
         @else
-            <a href="#" class="group inline-flex gap-[5px] items-center bg-[#F5EAF5] border border-[#FED5C3] rounded-[5px] px-[10px] py-[4px] text-[12px] font-[600] text-[#D272D2] text-center hover:bg-[#D272D2] hover:text-[#fff]">Next <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-               <path d="M1 1L5 5L1 9" stroke="#D272D2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:stroke-[#fff] "></path>
+            <a href="#" class="btn group inline-flex gap-[8px] items-center bg-[#4EF953] border border-[#FED5C3] rounded-[5px] px-[10px] py-[4px] text-[12px] font-[600] text-[#000] text-center hover:bg-[#4EF953] hover:text-[#000]]">Next <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+               <path d="M1 1L5 5L1 9" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:stroke-[#000] "></path>
            </svg></a>
         @endif
     </div>

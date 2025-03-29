@@ -71,7 +71,7 @@
                      @if(!empty($requestedParams['filterIn']))
                         @foreach ($requestedParams['filterIn'] as $k => $inValue)
                         <div class="filteravl-{{ $k }} flex items-center gap-[20px] bg-[#F6F6F6] pl-[15px] text-[14px] font-[600] text-[#4D4D4D] border-[1px] border-[#E6E6E6] rounded-[4px] hover:outline-none focus:outline-none"> <input type="hidden" name="filterIn[{{ $k }}][]" value="{{ $inValue[0] }}"><input type="hidden" name="filterInValue[{{$k }}][]" value="{{ $requestedParams['filterInValue'][$k][0] }}"> {{ $requestedParams['filterInValue'][$k][0] }} 
-                        <button class="removeActiveOne w-[40px] h-[40px] flex items-center justify-center gap-[5px] bg-[#D272D2] text-[#fff] border-l-[1px] border-l-[#E6E6E6]"> <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M10.4033 1.29822L0.999773 10.7018" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M10.4033 10.7018L0.999772 1.29822" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> </div>
+                        <button class="removeActiveOne w-[40px] h-[40px] flex items-center justify-center gap-[5px] bg-[#49fb53] text-[#000] border-l-[1px] border-l-[#E6E6E6]"> <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M10.4033 1.29822L0.999773 10.7018" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M10.4033 10.7018L0.999772 1.29822" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> </div>
                         @endforeach
                      @endif
                   </div>
@@ -206,13 +206,13 @@
                {
                     label: 'Conversions',
                     data: conversionData,
-                    borderColor: '#d272d2',
-                    backgroundColor: 'rgba(210, 114, 210, 0.2)',
+                    borderColor: '#49fb53',
+                    backgroundColor: '#49fb53',
                     borderWidth: 2,
                     tension: 0.4,
                     fill: true,
                     pointRadius: 5,
-                    pointBackgroundColor: '#d272d2'
+                    pointBackgroundColor: '#49fb53'
                },
                {
                     label: 'Clicks',
@@ -303,7 +303,7 @@
          if($('.filteravl-'+$('.filterByDrop').val()).length>0){
             alert('Grouping filter is already added, please remove it to search by new one.'); return false;
          }
-         $('.allFilterInCommon').append('<div class="filteravl-'+$('.filterByDrop').val()+' flex items-center gap-[20px] bg-[#F6F6F6] pl-[15px] text-[14px] font-[600] text-[#4D4D4D] border-[1px] border-[#E6E6E6] rounded-[4px] hover:outline-none focus:outline-none"><input type="hidden" name="filterIn['+$('.filterByDrop').val()+'][]" value="'+$('.search-input-filter').val()+'"><input type="hidden" name="filterInValue['+$('.filterByDrop').val()+'][]" value="'+$('.search-input-filter option:selected').text()+'"> '+$('.search-input-filter option:selected').text()+' <button class="w-[40px] h-[40px] flex items-center justify-center gap-[5px] bg-[#D272D2] text-[#fff] border-l-[1px] border-l-[#E6E6E6]"> <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M10.4033 1.29822L0.999773 10.7018" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /> <path d="M10.4033 10.7018L0.999772 1.29822" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /> </svg> </button> </div>');
+         $('.allFilterInCommon').append('<div class="filteravl-'+$('.filterByDrop').val()+' flex items-center gap-[20px] bg-[#F6F6F6] pl-[15px] text-[14px] font-[600] text-[#4D4D4D] border-[1px] border-[#E6E6E6] rounded-[4px] hover:outline-none focus:outline-none"><input type="hidden" name="filterIn['+$('.filterByDrop').val()+'][]" value="'+$('.search-input-filter').val()+'"><input type="hidden" name="filterInValue['+$('.filterByDrop').val()+'][]" value="'+$('.search-input-filter option:selected').text()+'"> '+$('.search-input-filter option:selected').text()+' <button class="w-[40px] h-[40px] flex items-center justify-center gap-[5px] bg-[#49fb53] text-[#000] border-l-[1px] border-l-[#E6E6E6]"> <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M10.4033 1.29822L0.999773 10.7018" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /> <path d="M10.4033 10.7018L0.999772 1.29822" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /> </svg> </button> </div>');
          $('.search-input-filter').val('');
       }
    });

@@ -51,23 +51,23 @@
                     <td class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left whitespace-nowrap ">{{ date('d M Y',strtotime($apps->created_at)) }}</td>
                     <td class="w-[130px] text-[14px] font-[500] text-[#5E72E4] px-[10px] py-[10px] text-left whitespace-nowrap ">
                        <div class="flex items-center justify-end gap-[10px]">
-                          <a title="Edit" href="{{ route('apps.add',['id'=>$apps->id]) }}" class="flex items-center justify-center w-[35px] bg-[#49fb53] py-[10px] w-[100px] border border-[#49fb53] rounded-[4px] text-[14px] font-[500] text-[#000] text-center">
+                          <a title="Edit" href="{{ route('apps.add',['id'=>$apps->id]) }}" class="flex items-center justify-center w-[35px] bg-[#49fb53] py-[10px] w-[100px] 1border 1border-[#49fb53] rounded-[4px] text-[14px] font-[500] text-[#000] text-center">
                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 16 16" fill="none">
                               <path d="M8.29289 3.70711L1 11V15H5L12.2929 7.70711L8.29289 3.70711Z" fill="#000"/>
                               <path d="M9.70711 2.29289L13.7071 6.29289L15.1716 4.82843C15.702 4.29799 16 3.57857 16 2.82843C16 1.26633 14.7337 0 13.1716 0C12.4214 0 11.702 0.297995 11.1716 0.828428L9.70711 2.29289Z" fill="#000"/>
                            </svg> 
                            </a>
                            @if( $apps->status==1 && $apps->affiliate_status==1)
-                           <a title="Integration" href="{{ route('apps.integration',['id'=>$apps->id]) }}" class="flex items-center justify-center w-[35px] bg-[#49fb53] py-[10px] w-[100px] border border-[#49fb53] rounded-[4px] text-[14px] font-[500] text-[#000] text-center">
+                           <a title="Integration" href="{{ route('apps.integration',['id'=>$apps->id]) }}" class="flex items-center justify-center w-[35px] bg-[#49fb53] py-[10px] w-[100px] 1border 1border-[#49fb53] rounded-[4px] text-[14px] font-[500] text-[#000] text-center">
                            <svg xmlns="http://www.w3.org/2000/svg"  width="14" height="14" viewBox="0 0 16 16" fill="none">
-                              <path d="M8.01005 0.858582L6.01005 14.8586L7.98995 15.1414L9.98995 1.14142L8.01005 0.858582Z" fill="#D272D2"/>
-                              <path d="M12.5 11.5L11.0858 10.0858L13.1716 8L11.0858 5.91422L12.5 4.5L16 8L12.5 11.5Z" fill="#D272D2"/>
-                              <path d="M2.82843 8L4.91421 10.0858L3.5 11.5L0 8L3.5 4.5L4.91421 5.91422L2.82843 8Z" fill="#D272D2"/>
+                              <path d="M8.01005 0.858582L6.01005 14.8586L7.98995 15.1414L9.98995 1.14142L8.01005 0.858582Z" fill="#000"/>
+                              <path d="M12.5 11.5L11.0858 10.0858L13.1716 8L11.0858 5.91422L12.5 4.5L16 8L12.5 11.5Z" fill="#000"/>
+                              <path d="M2.82843 8L4.91421 10.0858L3.5 11.5L0 8L3.5 4.5L4.91421 5.91422L2.82843 8Z" fill="#000"/>
                               </svg>
                            </a>
-                           <a title="Template" href="{{ route('apps.template',['id'=>$apps->id]) }}" class="flex items-center justify-center w-[35px] bg-[#FFF3ED] py-[10px] w-[100px] border border-[#FED5C3] rounded-[4px] text-[14px] font-[500] text-[#D272D2] text-center">
+                           <a title="Template" href="{{ route('apps.template',['id'=>$apps->id]) }}" class="flex items-center justify-center w-[35px] bg-[#49fb53] py-[10px] w-[100px] 1border 1border-[#FED5C3] rounded-[4px] text-[14px] font-[500] text-[#000] text-center">
                              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" >
-                              <path fill-rule="evenodd" clip-rule="evenodd" d="M16 2H0V14H16V2ZM3 6C3.55228 6 4 5.55228 4 5C4 4.44772 3.55228 4 3 4C2.44772 4 2 4.44772 2 5C2 5.55228 2.44772 6 3 6ZM7.5 5C7.5 5.55228 7.05228 6 6.5 6C5.94772 6 5.5 5.55228 5.5 5C5.5 4.44772 5.94772 4 6.5 4C7.05228 4 7.5 4.44772 7.5 5ZM10 6C10.5523 6 11 5.55228 11 5C11 4.44772 10.5523 4 10 4C9.44771 4 9 4.44772 9 5C9 5.55228 9.44771 6 10 6Z" fill="#D272D2"/>
+                              <path fill-rule="evenodd" clip-rule="evenodd" d="M16 2H0V14H16V2ZM3 6C3.55228 6 4 5.55228 4 5C4 4.44772 3.55228 4 3 4C2.44772 4 2 4.44772 2 5C2 5.55228 2.44772 6 3 6ZM7.5 5C7.5 5.55228 7.05228 6 6.5 6C5.94772 6 5.5 5.55228 5.5 5C5.5 4.44772 5.94772 4 6.5 4C7.05228 4 7.5 4.44772 7.5 5ZM10 6C10.5523 6 11 5.55228 11 5C11 4.44772 10.5523 4 10 4C9.44771 4 9 4.44772 9 5C9 5.55228 9.44771 6 10 6Z" fill="#000"/>
                               </svg>
                             </a>
                             @endif

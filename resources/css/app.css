@@ -100,6 +100,13 @@ form#filterConversions{width:100%;}
         background-color: #f1faff;
         color: #009ef7;
     }
+
+    .description{max-height:19px;overflow:hidden;position:relative; transition: max-height 0.5s ease-in-out; /* Smooth transition */    margin: 0 0 20px;}
+        .description.expanded{max-height:none;}
+        /* .read-more{color:black;cursor:pointer;display:inline-block;margin-top:5px;background:#ccc;padding:5px 10px;font-size:11px;text-align:center;border-radius:3px;} */
+        .description.expanded { max-height: 500px; /* Maximum expanded height */}
+
+
 /* Responsvie */
 @media(max-width:1535px){.sidebar{width:230px;}
 .head-w-cal{width:calc(100% - 230px);}

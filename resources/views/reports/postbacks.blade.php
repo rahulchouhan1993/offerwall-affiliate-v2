@@ -198,6 +198,60 @@
        </div>
     </div>
 </div>
+
+<!-- Example Table -->
+
+<div style="max-width: 800px;">
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>QTY</th>
+        </tr>
+        <tr>
+            <td>
+                <div class="description">
+                    Verpluging is a unique component used in modern applications to ensure smooth performance.
+                </div>
+                <span class="read-more w-[80px] md:w-[90px] lg:w-[100px] xl:w-[130px] 2xl:w-[140px] bg-[#49FB53] px-[3px] py-[12px] w-[100px] rounded-[4px] text-[14px] font-[500] text-[#000] text-center">Read More</span>
+            </td>
+            <td>
+                <div class="description">
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                </div>
+                <span class="read-more w-[80px] md:w-[90px] lg:w-[100px] xl:w-[130px] 2xl:w-[140px] bg-[#49FB53] px-[3px] py-[12px] w-[100px] rounded-[4px] text-[14px] font-[500] text-[#000] text-center">Read More</span>
+            </td>
+            <td>
+                <div class="description">
+                    This is a simple quantity description, but it is too long and needs to be shortened for better visibility.
+                </div>
+                <span class="read-more w-[80px] md:w-[90px] lg:w-[100px] xl:w-[130px] 2xl:w-[140px] bg-[#49FB53] px-[3px] py-[12px] w-[100px] rounded-[4px] text-[14px] font-[500] text-[#000] text-center">Read More</span>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script>
+    document.querySelectorAll(".read-more").forEach(button => {
+        button.addEventListener("click", function () {
+            let desc = this.previousElementSibling;
+            if (desc.classList.contains("expanded")) {
+                desc.classList.remove("expanded");
+                this.textContent = "Read More";
+            } else {
+                desc.classList.add("expanded");
+                this.textContent = "Read Less";
+            }
+        });
+    });
+</script>
+
+<!-- end -->
+
+
+
+
+
 <script>
     var startDate = "{{ $requestedParams['strd'] }}"
     var endDate = "{{ $requestedParams['endd'] }}"

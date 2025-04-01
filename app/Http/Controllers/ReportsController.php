@@ -56,7 +56,7 @@ class ReportsController extends Controller
 
         $trackingStats->selectRaw("
             COUNT(*) as total_click,
-            COUNT(CASE WHEN conversion_id IS NOT NULL THEN 1 END) as total_conversions,
+            COUNT(CASE WHEN conversion_id IS NOT NULL AND status=1 THEN 1 END) as total_conversions,
             SUM(revenue) as total_revenue,
             SUM(payout) as total_payout
         ");
@@ -126,11 +126,11 @@ class ReportsController extends Controller
         $advertiserDetails = Setting::find(1);
         $allAffiliatesApp = App::where('affiliateId',auth()->user()->id)->get();
         $requestedParams = $request->all();
-        $allCountry = Tracking::where('user_id', auth()->id())->distinct()->pluck('country_code', 'country_name');    
+        $allCountry = Tracking::where('status',1)->where('user_id', auth()->id())->distinct()->pluck('country_code', 'country_name');    
         $allOffers = [];
-        $allTrackings = Tracking::where('user_id',auth()->user()->id)->where('postback_sent',1)->groupBy('offer_id')->pluck('offer_id');
+        $allTrackings = Tracking::where('status',1)->where('user_id',auth()->user()->id)->where('postback_sent',1)->groupBy('offer_id')->pluck('offer_id');
        
-        $allOs = Tracking::where('user_id', auth()->id())->distinct()->pluck('device_os', 'device_os');   
+        $allOs = Tracking::where('status',1)->where('user_id', auth()->id())->distinct()->pluck('device_os', 'device_os');   
         if(!empty($allTrackings)){
             foreach($allTrackings as $tracking){
                 $url = $advertiserDetails->affise_endpoint.'offer/'.$tracking;
@@ -148,7 +148,7 @@ class ReportsController extends Controller
 
         // Apply affiliate filter
         $trackingStats->whereNotNull('conversion_id');
-        $trackingStats->where('user_id', auth()->user()->id);
+        $trackingStats->where('user_id', auth()->user()->id)->where('status',1);
 
         $requestedParams['range'] = $requestedParams['range'] ?? date('m/d/Y', strtotime('-6 days')).' - '.date('m/d/Y');
         // Apply date range filter
@@ -196,7 +196,7 @@ class ReportsController extends Controller
         $allAffiliatesApp = App::where('affiliateId',auth()->user()->id)->get();
         $requestedParams = $request->all();
         
-        $allTrackings = Tracking::where('user_id',auth()->user()->id)->where('postback_sent',1)->groupBy('offer_id')->pluck('offer_id'); 
+        $allTrackings = Tracking::where('status',1)->where('user_id',auth()->user()->id)->where('postback_sent',1)->groupBy('offer_id')->pluck('offer_id'); 
         $allOffers = [];
         if(!empty($allTrackings)){
             foreach($allTrackings as $tracking){
@@ -217,7 +217,7 @@ class ReportsController extends Controller
 
         // Apply affiliate filter
         $trackingStats->whereNotNull('conversion_id');
-        $trackingStats->where('user_id', auth()->user()->id);
+        $trackingStats->where('user_id', auth()->user()->id)->where('status',1);
 
         $requestedParams['range'] = $requestedParams['range'] ?? date('m/d/Y', strtotime('-6 days')).' - '.date('m/d/Y');
         // Apply date range filter

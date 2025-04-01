@@ -41,7 +41,7 @@ class ChartController extends Controller
                 $monthKey = $labelKey[$monthName];
 
                 // Count conversions
-                if (!is_null($tracking->conversion_id)) {
+                if (!is_null($tracking->conversion_id) && $tracking->status==1) {
                     $conversionData[$monthKey] += 1;
                 }
 

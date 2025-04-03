@@ -124,7 +124,10 @@
                   }
                 @endphp
                 <tr>
-                   <td class="text-[10px] font-[500] text-[#808080] px-[10px] py-[10px] text-left whitespace-nowrap  border-b-[1px] border-b-[#E6E6E6]">{{  $postBacks->postback_url ?? 'N/A' }}</td>
+                   <td class="text-[10px] font-[500] text-[#808080] px-[10px] py-[10px] text-left whitespace-nowrap  border-b-[1px] border-b-[#E6E6E6]">
+                    <span class="short-url" onclick="copyToClipboard('{{ $postBacks->postback_url }}')" title="Click to copy">
+                        {{ Str::limit($postBacks->postback_url, 60, '...') }}
+                    </span></td>
                    @php $exportedData['data'][$key]['postback'] = $postBacks->postback_url ?? 'N/A'; @endphp
                    <td class=" whitespace-normal breakword text-[10px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  border-b-[1px] border-b-[#E6E6E6] ">{{ $postBacks->conversion_id }}</td>
                    @php $exportedData['data'][$key]['conversion_id'] = $postBacks->conversion_id ?? '0'; @endphp
@@ -199,7 +202,6 @@
     </div>
 </div>
 
-
 <script>
     var startDate = "{{ $requestedParams['strd'] }}"
     var endDate = "{{ $requestedParams['endd'] }}"
@@ -238,6 +240,14 @@
             console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
         });
    });
+
+   function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            //alert("Copied to clipboard: " + text);
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+    }
 
    $("#exportCsvBtn").click(function () {
     let exportData = @json($exportedData); 

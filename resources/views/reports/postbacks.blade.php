@@ -124,10 +124,12 @@
                   }
                 @endphp
                 <tr>
-                   <td class="text-[10px] font-[500] text-[#808080] px-[10px] py-[10px] text-left whitespace-nowrap  border-b-[1px] border-b-[#E6E6E6]">
-                    <span class="short-url" onclick="copyToClipboard('{{ $postBacks->postback_url }}')" title="Click to copy">
-                        {{ Str::limit($postBacks->postback_url, 60, '...') }}
-                    </span></td>
+                    <td class="text-[10px] font-[500] text-[#808080] px-[10px] py-[10px] text-left whitespace-nowrap  border-b-[1px] border-b-[#E6E6E6]">
+                        <span class="short-url" >
+                            {{ Str::limit($postBacks->postback_url, 60, '...') }}
+                        </span>
+                        <i class="copy-icon" onclick="copyToClipboard('{{ $postBacks->postback_url }}')" title="Copy to clipboard">📋</i>
+                    </td>
                    @php $exportedData['data'][$key]['postback'] = $postBacks->postback_url ?? 'N/A'; @endphp
                    <td class=" whitespace-normal breakword text-[10px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  border-b-[1px] border-b-[#E6E6E6] ">{{ $postBacks->conversion_id }}</td>
                    @php $exportedData['data'][$key]['conversion_id'] = $postBacks->conversion_id ?? '0'; @endphp

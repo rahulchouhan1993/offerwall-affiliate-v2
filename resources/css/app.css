@@ -136,7 +136,7 @@ body.active .sidebar a svg{width:18px;height:18px;}
 @media(max-width:767px){body.active .sidebar{width:178px;}
 .sidebar{overflow-y:scroll;max-height:300px;}
 button#hs-dropdown-toggle{font-size:0;gap:4px;}
-button#hs-dropdown-toggle img{width:25px;height:25px;}
+button#hs-dropdown-toggle img{width:25px;height:25px; min-width: 25px;}
 .head-logo{height:50px;}
 /* .pinkbg{background:conic-gradient(from 116deg at 71% 37%,#E746F5,#D62BE6);}
 .bluebg{background:conic-gradient(from 116deg at 71% 37%,#42C5FF,#2DB0E8);}

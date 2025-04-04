@@ -89,7 +89,7 @@ class ReportsController extends Controller
                     $trackingStats->selectRaw("device_os as element")->groupBy("device_os");
                     break;
                 case 'offer':
-                    $trackingStats->selectRaw("offer_id as element")->groupBy("offer_id");
+                    $trackingStats->selectRaw("offer_name as element")->groupBy("offer_name");
                     break;
                 default:
                     // Do nothing if groupBy is invalid
@@ -101,18 +101,6 @@ class ReportsController extends Controller
         $graphData = [];
         if($allStatistics->isNotEmpty()){
             foreach($allStatistics as $k => $v){
-                //special condition for offer grouped by
-                if($requestedParams['groupBy']=='offer'){
-                    $url = $advertiserDetails->affise_endpoint.'offer/'.$v->element;
-                    $response = HTTP::withHeaders([
-                        'API-Key' => $advertiserDetails->affise_api_key,
-                    ])->get($url);
-                    
-                    if ($response->successful()) {
-                        $offerDetails = $response->json();
-                        $v->element = ucfirst($offerDetails['offer']['title']);
-                    }
-                }
                 $graphData[$v->element]['conversion'] = $v->total_conversions;
                 $graphData[$v->element]['clicks'] = $v->total_click;
             }
@@ -128,19 +116,12 @@ class ReportsController extends Controller
         $requestedParams = $request->all();
         $allCountry = Tracking::where('status',1)->where('user_id', auth()->id())->distinct()->pluck('country_code', 'country_name');    
         $allOffers = [];
-        $allTrackings = Tracking::where('status',1)->where('user_id',auth()->user()->id)->where('postback_sent',1)->groupBy('offer_id')->pluck('offer_id');
-       
+        $allTrackings = Tracking::select('offer_id', 'offer_name')->where('status',1)->where('user_id',auth()->user()->id)->where('postback_sent',1)->distinct()->pluck('offer_name', 'offer_id');
+
         $allOs = Tracking::where('status',1)->where('user_id', auth()->id())->distinct()->pluck('device_os', 'device_os');   
         if(!empty($allTrackings)){
-            foreach($allTrackings as $tracking){
-                $url = $advertiserDetails->affise_endpoint.'offer/'.$tracking;
-                $response = HTTP::withHeaders([
-                    'API-Key' => $advertiserDetails->affise_api_key,
-                ])->get($url);
-                if ($response->successful()) {
-                    $offerDetails = $response->json();
-                    $allOffers[$tracking] = ucfirst($offerDetails['offer']['title']);
-                }
+            foreach ($allTrackings as $offerId => $offerName) {
+                $allOffers[$offerId] = ucfirst($offerName);
             }
         }
         //filter section
@@ -195,20 +176,11 @@ class ReportsController extends Controller
         $advertiserDetails = Setting::find(1);
         $allAffiliatesApp = App::where('affiliateId',auth()->user()->id)->get();
         $requestedParams = $request->all();
-        
-        $allTrackings = Tracking::where('status',1)->where('user_id',auth()->user()->id)->where('postback_sent',1)->groupBy('offer_id')->pluck('offer_id'); 
+        $allTrackings = Tracking::select('offer_id', 'offer_name')->where('status',1)->where('user_id',auth()->user()->id)->where('postback_sent',1)->distinct()->pluck('offer_name', 'offer_id');
         $allOffers = [];
         if(!empty($allTrackings)){
-            foreach($allTrackings as $tracking){
-                $url = $advertiserDetails->affise_endpoint.'offer/'.$tracking;
-                $response = HTTP::withHeaders([
-                    'API-Key' => $advertiserDetails->affise_api_key,
-                ])->get($url);
-                
-                if ($response->successful()) {
-                    $offerDetails = $response->json();
-                    $allOffers[$tracking] = ucfirst($offerDetails['offer']['title']);
-                }
+            foreach($allTrackings as $offerId => $offerName){
+                $allOffers[$offerId] = ucfirst($offerName);
             }
         }
 
@@ -264,38 +236,31 @@ class ReportsController extends Controller
         $returnOptions = '<option value="">Select</option>';
         if($filterBy=='country'){
             $allTrackings = Tracking::select('country_code', 'country_name')
+            ->where('user_id',auth()->user()->id)
             ->groupBy('country_code', 'country_name')
             ->pluck('country_name', 'country_code');
             foreach($allTrackings as $isoCode =>$countryName){
                 $returnOptions.='<option value="'.$isoCode.'">'.$countryName.'</option>';
             }
         }elseif($filterBy=='devices'){
-            $allTrackings = Tracking::groupBy('device_type')->pluck('device_type');
+            $allTrackings = Tracking::where('user_id',auth()->user()->id)->groupBy('device_type')->pluck('device_type');
             if(!empty($allTrackings)){
                 foreach($allTrackings as $tracking){
                     $returnOptions.='<option value="'.$tracking.'">'.ucfirst($tracking).'</option>';
                 }
             }
         }elseif($filterBy=='os'){
-            $allTrackings = Tracking::groupBy('device_os')->pluck('device_os');
+            $allTrackings = Tracking::where('user_id',auth()->user()->id)->groupBy('device_os')->pluck('device_os');
             if(!empty($allTrackings)){
                 foreach($allTrackings as $tracking){
                     $returnOptions.='<option value="'.$tracking.'">'.ucfirst($tracking).'</option>';
                 }
             }
         }elseif($filterBy=='offer'){
-            $allTrackings = Tracking::groupBy('offer_id')->pluck('offer_id');
+            $allTrackings = Tracking::select('offer_id', 'offer_name')->where('user_id',auth()->user()->id)->distinct()->pluck('offer_name', 'offer_id');
             if(!empty($allTrackings)){
-                foreach($allTrackings as $tracking){
-                    $url = $advertiserDetails->affise_endpoint.'offer/'.$tracking;
-                    $response = HTTP::withHeaders([
-                        'API-Key' => $advertiserDetails->affise_api_key,
-                    ])->get($url);
-                    
-                    if ($response->successful()) {
-                        $offerDetails = $response->json();
-                        $returnOptions.='<option value="'.$tracking.'">'.ucfirst($offerDetails['offer']['title']).'</option>';
-                    }
+                foreach($allTrackings as $offerId =>$offerName){
+                    $returnOptions.='<option value="'.$offerId.'">'.ucfirst($offerName).'</option>';
                 }
             }
         }

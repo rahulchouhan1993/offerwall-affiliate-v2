@@ -49,23 +49,9 @@
                             </div>
                         </div>
                     </div>
-                <!-- Reset Password -->
-                {{-- <div id="resetpassword" class="flex flex-col gap-[25px] hide  ">
-                    <div class="">
-                        <div class="text-[16px] font-[600] text-[#1A1A1A] mb-[8px]">Email</div>
-                        <div class="relative">
-                            <input type="email" placeholder="Email"
-                                class="block w-[100%] border-[1px] border-[#00000021] rounded-[7px] px-[15px] pr-[55px] py-[15px] bg-[#F6F6F6] hover:outline-none focus:outline-none">
-                            <div class="absolute top-[16px] right-[22px]">
-                            <i class="ri-mail-fill text-[#BFBFBF]"></i>
-
-                            </div>
-                        </div>
+                    <div class="text-right mt-[8px]">
+                        <a id="resetPass" href="/reset-password" class="text-[14px] text-[#4EF953] font-[500]">Reset password</a>
                     </div>
-                </div> 
-                <div class="text-right mt-[8px]">
-                    <a id="resetPass" href="#" class="text-[14px] text-[#4EF953] font-[500]" onclick="resetPass()">Reset password</a>
-                </div>--}}
                     <div class="mt-[30px]">
                         <button type="submit" class="w-[100%] bg-[#4EF953] px-[10px] py-[15px] text-[18px] text-[#210D0F] font-[500] text-center rounded-[8px] hover:bg-[#000] hover:text-[#fff]">
                         Login
@@ -79,7 +65,7 @@
                 </div>
                 <div class="mt-[50px] text-[14px] font-[500] text-[#898989] text-center">
                 Don’t have an account? 
-                    <a href="#" class="text-[#4EF953] underline hover:text-[#000] hover:no-underline ">
+                    <a href="https://offawall.com/" class="text-[#4EF953] underline hover:text-[#000] hover:no-underline ">
                     Sign Up
                     </a>
                 </div>
@@ -88,13 +74,4 @@
     </div>
    
 </div>
-<script>
-    function resetPass() {
-    var element = document.getElementById("loginForm");
-    element.classList.add("hide");
-
-    var element = document.getElementById("resetpassword");
-    element.classList.remove("hide");
-    }
-</script> 
 @stop

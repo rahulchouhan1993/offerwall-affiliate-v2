@@ -62,6 +62,8 @@ class AppsController extends Controller
                     $templateColor->offerText = $defaultTemplate->offerText;
                     $templateColor->offerButtonBg = $defaultTemplate->offerButtonBg;
                     $templateColor->offerButtonText = $defaultTemplate->offerButtonText;
+                    $templateColor->offerBadgeBg = $defaultTemplate->offerBadgeBg;
+                    $templateColor->offerBadgeText = $defaultTemplate->offerBadgeText;
                     $templateColor->footerBg = $defaultTemplate->footerBg;
                     $templateColor->footerText = $defaultTemplate->footerText;
                     $templateColor->save();
@@ -107,6 +109,8 @@ class AppsController extends Controller
             $templateColor->offerText = $request->offerText;
             $templateColor->offerButtonBg = $request->offerButtonBg;
             $templateColor->offerButtonText = $request->offerButtonText;
+            $templateColor->offerBadgeBg = $request->offerBadgeBg;
+            $templateColor->offerBadgeText = $request->offerBadgeText;
             $templateColor->footerBg = $request->footerBg;
             $templateColor->footerText = $request->footerText;
             $templateColor->save();

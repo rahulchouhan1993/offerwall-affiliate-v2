@@ -12,12 +12,12 @@
             <h2 class="text-[#1A1A1A] text-[14px] md:text-[17px]  lg:text-[18px]  font-[600]">{{ $pageTitle }}</h2>
         </div>
         <div class="flex items-center  gap-[2px] sm:gap-[8px]">
-        <div class="flex items-center gap-[2px] sm:gap-[8px] text-[15px] text-[#000]">
+        {{-- <div class="flex items-center gap-[2px] sm:gap-[8px] text-[15px] text-[#000]">
                 <button class="flex items-center gap-[4px]">    
                 <i class="ri-refresh-line text-[#49FB53]"></i>
-                <span class="text-[0] sm:text-[15px]">Update States</span>
+                <span class="text-[0] sm:text-[15px]">Update Statistics</span>
                 </button>
-            </div>
+            </div> --}}
 
             <div class="m-1 hs-dropdown relative inline-flex gap-[5px]">
                 <div class="flex items-center gap-[5px] mr-[8px]"><div><i class="ri-customer-service-2-line"></i></div> <a href="mailto:{{ $settingDetails->support_email }}" class="text-[0px] sm:text-[15px] text-[#000]"><span class="hidden md:flex">{{ $settingDetails->support_email }}</span></a></div>

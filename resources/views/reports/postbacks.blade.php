@@ -1,7 +1,19 @@
 @extends('layouts.default')
 @section('content')
 @php
-   use Illuminate\Support\Facades\Http;
+   $currentSort = request('sort');
+   $currentOrder = request('order', 'asc');
+   function sortLink($column, $label) {
+      $order = request('sort') === $column && request('order') === 'asc' ? 'desc' : 'asc';
+      $url = request()->fullUrlWithQuery(['sort' => $column, 'order' => $order]);
+      $arrow = '';
+      
+      if (request('sort') === $column) {
+         $arrow = $order === 'asc' ? '↑' : '↓';
+      }
+
+      return "<a href=\"$url\" class=\"hover:underline\">$label $arrow</a>";
+   }
 @endphp
 <div class="bg-[#f2f2f2] p-[15px] lg:p-[35px]">
     <div class="bg-[#fff] p-[15px] md:p-[20px] rounded-[10px] mb-[20px]">
@@ -10,10 +22,9 @@
           <button class="w-[100px] md:w-[110px] lg:w-[140px] bg-[#49FB53] px-[20px] py-[10px] w-[100px] rounded-[4px] text-[14px] font-[500] text-[#000] text-center" id="exportCsvBtn">Export</button>
        </div>
        <form method="get" id="postbackForm">
-
+        <input type="hidden" name="sort" value="{{ $currentSort }}">
+        <input type="hidden" name="order" value="{{ $currentOrder }}">
         <div class="w-full flex flex-col gap-[10px]">
-            
-
             <div class="w-[100%] flex flex-col lg:flex-row items-start lg:items-center justify-start gap-[10px]">
                 <label class="min-w-[160px] w-[100%] md:w-[10%] text-[14px] font-[500] text-[#898989] ">Range:</label>
                 <input type="text" name="range"  class="dateRange-report w-[100%] bg-[#F7F7F7] px-[15px] py-[12px] text-[12px] font-[600] text-[#000] 1border-[1px] 1border-[#E6E6E6] rounded-[10px] hover:outline-none focus:outline-none" placeholder="Date" value="{{ $requestedParams['range'] ?? '' }}">
@@ -69,10 +80,6 @@
                    </div>
                 </div></div>
              </div>
-
-
-
-
     </form>
     @php
       $exportedData = [
@@ -83,12 +90,10 @@
                '3' => 'Goal',
                '4' => 'Status',
                '5' => 'Payouts',
-               '6' => 'Goal',
-               '7' => 'Payout',
-               '8' => 'HTTP code',
-               '9' => 'Error',
-               '10' => 'Date',
-               '11' => 'Id',
+               '6' => 'HTTP code',
+               '7' => 'Error',
+               '8' => 'Date',
+               '9' => 'Id',
             ],
             'data' => []
          ]; 
@@ -99,29 +104,20 @@
                 <tr>
                    <th class="bg-[#7FB5CB] rounded-tl-[10px] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap ">Postback URL</th>
                    <th class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap ">Conversion ID</th>
-                   <th class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap ">Offer</th>
-                   <th class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap ">Goal</th>
-                   <th class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap ">Status</th>
-                   <th class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap ">Payouts</th>
+                   <th class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap "> {!! sortLink('offer_id', 'Offer') !!}</th>
+                   <th class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap ">{!! sortLink('goal', 'Goal') !!}</th>
+                   <th class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap ">{!! sortLink('status', 'Status') !!}</th>
+                   <th class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap ">{!! sortLink('payout', 'Revenue') !!}</th>
                    
                    <th class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap ">HTTP code</th>
                    <th class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap ">Error</th>
-                   <th class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap ">Date</th>
+                   <th class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap ">{!! sortLink('updated_at', 'Date') !!}</th>
                    <th class="bg-[#7FB5CB] rounded-tr-[10px] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap ">ID</th>
                 </tr>
                 @if($allPostbacks->isNotEmpty()) 
                 @foreach ($allPostbacks as $key => $postBacks)
                 @php
-                  $url = $advertiserDetails->affise_endpoint . "offer/".$postBacks->offer_id;
-                  $response = HTTP::withHeaders([
-                        'API-Key' => $advertiserDetails->affise_api_key,
-                  ])->get($url);
-                  if ($response->successful()) {
-                     $offerDetail = $response->json();
-                     $offerName = $offerDetail['offer']['title'];
-                  }else{
-                     $offerName = 'N/A';
-                  }
+                   $offerName =$postBacks->offer_name ?? 'N/A';
                 @endphp
                 <tr>
                     <td class="text-[10px] font-[500] text-[#808080] px-[10px] py-[10px] text-left whitespace-nowrap  border-b-[1px] border-b-[#E6E6E6]">
@@ -148,14 +144,14 @@
                    </td>
                    @php $exportedData['data'][$key]['status'] = 'Failed'; @endphp
                    @endif
-                   <td class=" whitespace-normal breakword text-[10px] font-[500] text-[#808080] px-[10px] py-[10px] text-left border-b-[1px] border-b-[#E6E6E6]">{{ $postBacks->payout ?? 'N/A'; }}</td>
-                   @php $exportedData['data'][$key]['payout'] = $postBacks->payout ?? 'N/A'; @endphp
+                   <td class=" whitespace-normal breakword text-[10px] font-[500] text-[#808080] px-[10px] py-[10px] text-left border-b-[1px] border-b-[#E6E6E6]">{{ "$ ".$postBacks->payout ?? 'N/A'; }}</td>
+                   @php $exportedData['data'][$key]['payout'] = "$ ".$postBacks->payout ?? 'N/A'; @endphp
                    <td class=" whitespace-normal breakword text-[10px] font-[500] text-[#808080] px-[10px] py-[10px] text-left border-b-[1px] border-b-[#E6E6E6]">{{ $postBacks->http_code ?? 'N/A'; }}</td>
                    @php $exportedData['data'][$key]['http_code'] = $postBacks->http_code ?? 'N/A'; @endphp
                    <td class=" whitespace-normal breakword text-[10px] font-[500] text-[#808080] px-[10px] py-[10px] text-left border-b-[1px] border-b-[#E6E6E6]">{{  $postBacks->error ?? 'N/A' }}</td>
                    @php $exportedData['data'][$key]['error'] =  $postBacks->error ?? 'N/A' ; @endphp
-                   <td class=" whitespace-normal breakword text-[10px] font-[500] text-[#808080] px-[10px] py-[10px] text-left border-b-[1px] border-b-[#E6E6E6]">{{ date('d M Y', $postBacks->ceated_at) }}</td>
-                   @php $exportedData['data'][$key]['ceated_at'] = $postBacks->ceated_at ?? 'N/A'; @endphp
+                   <td class=" whitespace-normal breakword text-[10px] font-[500] text-[#808080] px-[10px] py-[10px] text-left border-b-[1px] border-b-[#E6E6E6]">{{ date('d M Y', strtotime($postBacks->updated_at)) }}</td>
+                   @php $exportedData['data'][$key]['updated_at'] = $postBacks->updated_at ?? 'N/A'; @endphp
                    <td class=" whitespace-normal breakword text-[10px] font-[500] text-[#808080] px-[10px] py-[10px] text-left border-b-[1px] border-b-[#E6E6E6]">{{ $postBacks->id }}</td>
                    @php $exportedData['data'][$key]['id'] = $postBacks->id ?? 'N/A'; @endphp
                 </tr>

@@ -1,7 +1,20 @@
 @extends('layouts.default')
 @section('content')
 @php
-   use Illuminate\Support\Facades\Http;
+
+   $currentSort = request('sort');
+   $currentOrder = request('order', 'asc');
+   function sortLink($column, $label) {
+      $order = request('sort') === $column && request('order') === 'asc' ? 'desc' : 'asc';
+      $url = request()->fullUrlWithQuery(['sort' => $column, 'order' => $order]);
+      $arrow = '';
+      
+      if (request('sort') === $column) {
+         $arrow = $order === 'asc' ? '↑' : '↓';
+      }
+
+      return "<a href=\"$url\" class=\"hover:underline\">$label $arrow</a>";
+   }
 @endphp
 
 <div class="bg-[#f2f2f2] p-[15px] md:p-[35px]">
@@ -13,6 +26,8 @@
        </div>
        <div class="flex flex-col items-center justify-center gap-[15px]">
          <form method="get" id="filterConversions">
+            <input type="hidden" name="sort" value="{{ $currentSort }}">
+         <input type="hidden" name="order" value="{{ $currentOrder }}">
           <div class="w-full flex flex-col gap-[10px]">
             <div class="w-[100%] flex flex-col lg:flex-row items-start lg:items-center justify-start gap-[10px]">
                <label class="min-w-[160px] w-[100%] md:w-[10%] text-[14px] font-[500] text-[#898989] ">Apps:</label>
@@ -90,12 +105,12 @@
                '4' => 'Status',
                '5' => 'Offer',
                '6' => 'Goal',
-               '7' => 'Payout',
+               '7' => 'Revenue',
                '8' => 'Country',
                '9' => 'IP',
                '10' => 'OS',
                '11' => 'Device',
-               '12' => 'Mobile ISP',
+               //'12' => 'Mobile ISP',
                '13' => 'User Agent',
             ],
             'data' => []
@@ -116,31 +131,31 @@
                    </th>
                    <th
                       class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap ">
-                      Click Date
+                      {!! sortLink('click_time', 'Click Date') !!}
                    </th>
                    <th
                       class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap ">
-                      Conversion Date
+                      {!! sortLink('conversion_time', 'Conversion Date') !!}
                    </th>
                    <th
                       class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap">
-                      Status
+                      {!! sortLink('status', 'Status') !!}
                    </th>
                    <th
                       class=" whitespace-normal breakword bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left">
-                      Offer
+                      {!! sortLink('offer_id', 'Offer') !!}
                    </th>
                    <th
                       class=" whitespace-normal breakword bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left">
-                      Goal
+                      {!! sortLink('goal', 'Goal') !!}
                    </th>
                    <th
                       class=" whitespace-normal breakword bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left">
-                      Payout
+                      {!! sortLink('payout', 'Revenue') !!}
                    </th>
                    <th
                       class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap">
-                      Country
+                      {!! sortLink('country_code', 'Country') !!}
                    </th>
                    <th
                       class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap">
@@ -148,16 +163,16 @@
                    </th>
                    <th
                       class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap">
-                      OS
+                      {!! sortLink('device_os', 'OS') !!}
                    </th>
                    <th
                       class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap">
-                      Device
+                      {!! sortLink('device_type', 'Device') !!}
                    </th>
-                   <th
+                   {{-- <th
                       class="bg-[#7FB5CB] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap">
-                      Mobile ISP
-                   </th>
+                      {!! sortLink('isp', 'Mobile ISP') !!}
+                   </th> --}}
                    <th
                       class="bg-[#7FB5CB] rounded-tr-[10px] text-[10px] font-[500] text-[#fff] px-[10px] py-[13px] text-left whitespace-nowrap">
                       User Agent
@@ -183,8 +198,8 @@
                    </td>
                    <td
                       class="text-[10px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  border-b-[1px] border-b-[#E6E6E6]">
-                      {{ $conversion->created_at }}
-                      @php $exportedData['data'][$key]['created_at'] = $conversion->created_at ?? '0'; @endphp
+                      {{ $conversion->conversion_time }}
+                      @php $exportedData['data'][$key]['created_at'] = $conversion->conversion_time ?? '0'; @endphp
                    </td>
                    <td
                       class="text-[10px] font-[500] text-[#808080] px-[10px] py-[10px] text-left whitespace-nowrap border-b-[1px] border-b-[#E6E6E6]">
@@ -199,20 +214,10 @@
                       @endif --}}
                       
                    </td>
-                   @php
-                        $url = $advertiserDetails->affise_endpoint.'offer/'.$conversion->offer_id;
-                        $response = HTTP::withHeaders([
-                           'API-Key' => $advertiserDetails->affise_api_key,
-                        ])->get($url);
-                        if ($response->successful()) {
-                           $offerDetails = $response->json();
-                           $conversion->offer_id = ucfirst($offerDetails['offer']['title']);
-                        }
-                   @endphp
                    <td
                       class="text-[10px] font-[500] text-[#808080] px-[10px] py-[10px] text-left whitespace-nowrap border-b-[1px] border-b-[#E6E6E6]">
-                      {{ $conversion->offer_id }}
-                      @php $exportedData['data'][$key]['offer_id'] = $conversion->offer_id ?? '0'; @endphp
+                      {{ $conversion->offer_name }}
+                      @php $exportedData['data'][$key]['offer_id'] = $conversion->offer_name ?? '0'; @endphp
                    </td>
                      @php
                         $goalConv = ($conversion->goal == '') ? '--' : $conversion->goal;
@@ -247,11 +252,11 @@
                        {{ $conversion->device_type ?? 'Unknown' }}
                        @php $exportedData['data'][$key]['device_type'] = $conversion->device_type ?? 'Unknown'; @endphp
                    </td>
-                   <td
+                   {{-- <td
                       class="text-[10px] font-[500] text-[#808080] px-[10px] py-[10px] text-left whitespace-nowrap border-b-[1px] border-b-[#E6E6E6]">
                       {{ $conversion->isp ?? 'Unknown' }}
                       @php $exportedData['data'][$key]['isp'] = $conversion->isp ?? 'Unknown'; @endphp
-                   </td>
+                   </td> --}}
                    <td
                       class="text-[10px] font-[500] text-[#808080] text-center px-[10px] py-[10px] text-left  border-b-[1px] border-b-[#E6E6E6]">
                       {{ $conversion->ua }}

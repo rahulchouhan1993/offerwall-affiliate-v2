@@ -17,7 +17,9 @@ class ReportsController extends Controller
         $allAffiliatesApp =  App::where('affiliateId',auth()->user()->id)->get();
         $trackingStats = Tracking::query();
         $requestedParams = $request->all();
-        
+        if(!isset($requestedParams['sort']) || !isset($requestedParams['order'])){
+            return redirect()->route('report.statistics',['sort'=>'element','order'=>'asc']);
+        }
         $requestedParams['groupBy'] = $requestedParams['groupBy'] ?? 'hour';
         $requestedParams['range'] = $requestedParams['range'] ?? date('m/d/Y', strtotime('-6 days')).' - '.date('m/d/Y');
         // Apply date range filter
@@ -97,7 +99,20 @@ class ReportsController extends Controller
             }
         }
         $allStatistics = $trackingStats->get();
-        
+        $sortBy = $request->get('sort', 'element');
+        $order = $request->get('order', 'asc');
+
+        $allStatistics = $allStatistics->sortBy(function ($item) use ($sortBy) {
+            switch ($sortBy) {
+                case 'cvr':
+                    return ($item->total_click > 0) ? ($item->total_conversions / $item->total_click) * 100 : 0;
+                case 'epc':
+                    return ($item->total_click > 0) ? ($item->total_payout / $item->total_click) : 0;
+                default:
+                    return $item->$sortBy ?? null;
+            }
+        }, SORT_REGULAR, $order === 'desc');
+
         $graphData = [];
         if($allStatistics->isNotEmpty()){
             foreach($allStatistics as $k => $v){
@@ -114,6 +129,9 @@ class ReportsController extends Controller
         $advertiserDetails = Setting::find(1);
         $allAffiliatesApp = App::where('affiliateId',auth()->user()->id)->get();
         $requestedParams = $request->all();
+        if(!isset($requestedParams['sort']) || !isset($requestedParams['order'])){
+            return redirect()->route('report.conversions',['sort'=>'click_time','order'=>'asc']);
+        }
         $allCountry = Tracking::where('status',1)->where('user_id', auth()->id())->distinct()->pluck('country_code', 'country_name');    
         $allOffers = [];
         $allTrackings = Tracking::select('offer_id', 'offer_name')->where('status',1)->where('user_id',auth()->user()->id)->where('postback_sent',1)->distinct()->pluck('offer_name', 'offer_id');
@@ -167,6 +185,18 @@ class ReportsController extends Controller
             $trackingStats->where('goal', $requestedParams['goal']);
         }
 
+        // Apply sorting
+        $sortColumn = $request->get('sort', 'click_time');
+        $sortOrder = $request->get('order', 'asc');
+
+        // Validate the sort column to prevent SQL injection
+        $allowedSortColumns = ['click_time','conversion_time','status', 'offer_id', 'goal', 'payout', 'country_code','device_os','device_type'];
+        if (in_array($sortColumn, $allowedSortColumns)) {
+            $trackingStats->orderBy($sortColumn, $sortOrder);
+        } else {
+            $trackingStats->orderBy('click_time', 'asc');
+        }
+
         $allConversions = $trackingStats->paginate(100)->appends(request()->query());
         return view('reports.conversions',compact('allAffiliatesApp','pageTitle','allConversions','allCountry','allOffers','allOs','requestedParams','advertiserDetails'));
     }
@@ -176,6 +206,9 @@ class ReportsController extends Controller
         $advertiserDetails = Setting::find(1);
         $allAffiliatesApp = App::where('affiliateId',auth()->user()->id)->get();
         $requestedParams = $request->all();
+        if(!isset($requestedParams['sort']) || !isset($requestedParams['order'])){
+            return redirect()->route('report.postbacks',['sort'=>'offer_id','order'=>'asc']);
+        }
         $allTrackings = Tracking::select('offer_id', 'offer_name')->where('status',1)->where('user_id',auth()->user()->id)->where('postback_sent',1)->distinct()->pluck('offer_name', 'offer_id');
         $allOffers = [];
         if(!empty($allTrackings)){
@@ -221,8 +254,19 @@ class ReportsController extends Controller
             $trackingStats->where('http_code', $requestedParams['status']);
         }
 
+        // Apply sorting
+        $sortColumn = $request->get('sort', 'offer_id');
+        $sortOrder = $request->get('order', 'asc');
+
+        // Validate the sort column to prevent SQL injection
+        $allowedSortColumns = ['offer_id', 'status', 'goal', 'payout', 'updated_at'];
+        if (in_array($sortColumn, $allowedSortColumns)) {
+            $trackingStats->orderBy($sortColumn, $sortOrder);
+        } else {
+            $trackingStats->orderBy('offer_id', 'asc');
+        }
+
         $allPostbacks = $trackingStats->paginate(100)->appends(request()->query());
-        
         return view('reports.postbacks',compact('pageTitle','allPostbacks','allAffiliatesApp','requestedParams','allOffers','advertiserDetails'));
     }
 
@@ -300,7 +344,7 @@ class ReportsController extends Controller
                         $row['ip'],
                         $row['device_os'],
                         $row['device_type'],
-                        $row['isp'],
+                        // $row['isp'],
                         $row['ua']
                     ]);
                 }elseif($exportType=='postback'){
@@ -311,11 +355,9 @@ class ReportsController extends Controller
                         $row['goal'], 
                         $row['status'], 
                         $row['payout'],
-                        $row['goal'],
-                        $row['payout'],
                         $row['http_code'],
                         $row['error'],
-                        $row['ceated_at'],
+                        $row['updated_at'],
                         $row['id']
                     ]);
                 }else{

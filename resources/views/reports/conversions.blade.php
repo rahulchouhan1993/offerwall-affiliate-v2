@@ -203,15 +203,24 @@
                    </td>
                    <td
                       class="text-[10px] font-[500] text-[#808080] px-[10px] py-[10px] text-left whitespace-nowrap border-b-[1px] border-b-[#E6E6E6]">
-                      <div class="inline-flex bg-[#F3FEE7] border border-[#BCEE89] rounded-[5px]  px-[8px] py-[4px] text-[10px] font-[600] text-[#6EBF1A] text-center uppercase">Confirmed</div>
-                      @php $exportedData['data'][$key]['status'] = 'Confirmed'; @endphp
-                      {{-- @if($conversion['status']=='confirmed')
+                      @if($conversion->status=='1')
                       <div class="inline-flex bg-[#F3FEE7] border border-[#BCEE89] rounded-[5px]  px-[8px] py-[4px] text-[10px] font-[600] text-[#6EBF1A] text-center uppercase">
-                        {{ $conversion['status'] }} </div>
+                        Confirmed </div>
+                        @php $exportedData['data'][$key]['status'] = 'Confirmed'; @endphp
                       @else
-                      <div class="inline-flex bg-[#fee7e7] border border-[#ee8989] rounded-[5px]  px-[8px] py-[4px] text-[10px] font-[600] text-[#bf1a1a] text-center uppercase">
-                        {{ $conversion['status'] }} </div>
-                      @endif --}}
+                      <div class="inline-flex items-center bg-[#fee7e7] border border-[#ee8989] rounded-[5px] px-[8px] py-[4px] text-[10px] font-[600] text-[#bf1a1a] text-center uppercase relative group">
+                        Rejected
+                        <svg class="w-3.5 h-3.5 ml-1 cursor-pointer text-[#bf1a1a]" fill="currentColor" viewBox="0 0 24 24">
+                           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 
+                           10-10S17.52 2 12 2zm0 17c-.55 0-1-.45-1-1s.45-1 
+                           1-1 1 .45 1 1-.45 1-1 1zm1-4h-2V7h2v8z"/>
+                        </svg>
+                        <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 hidden group-hover:block bg-black text-white text-[10px] px-2 py-1 rounded z-10 whitespace-nowrap">
+                           Your offer was rejected due to policy violation.
+                        </div>
+                     </div>
+                        @php $exportedData['data'][$key]['status'] = 'Rejected'; @endphp
+                      @endif
                       
                    </td>
                    <td

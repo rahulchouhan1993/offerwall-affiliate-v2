@@ -134,7 +134,7 @@ class ReportsController extends Controller
         }
         $allCountry = Tracking::where('status',1)->where('user_id', auth()->id())->distinct()->pluck('country_code', 'country_name');    
         $allOffers = [];
-        $allTrackings = Tracking::select('offer_id', 'offer_name')->where('status',1)->where('user_id',auth()->user()->id)->where('postback_sent',1)->distinct()->pluck('offer_name', 'offer_id');
+        $allTrackings = Tracking::select('offer_id', 'offer_name')->whereIn('status',[1,2])->where('user_id',auth()->user()->id)->distinct()->pluck('offer_name', 'offer_id');
 
         $allOs = Tracking::where('status',1)->where('user_id', auth()->id())->distinct()->pluck('device_os', 'device_os');   
         if(!empty($allTrackings)){
@@ -147,7 +147,7 @@ class ReportsController extends Controller
 
         // Apply affiliate filter
         $trackingStats->whereNotNull('conversion_id');
-        $trackingStats->where('user_id', auth()->user()->id)->where('status',1);
+        $trackingStats->where('user_id', auth()->user()->id)->whereIn('status',[1,2]);
 
         $requestedParams['range'] = $requestedParams['range'] ?? date('m/d/Y', strtotime('-6 days')).' - '.date('m/d/Y');
         // Apply date range filter

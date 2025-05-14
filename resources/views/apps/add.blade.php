@@ -1,8 +1,9 @@
 @extends('layouts.default')
 @section('content')
 <div class="bg-[#f2f2f2] p-[15px] md:p-[35px]">
-    <form method="POST" action={{ route('apps.add',['id'=>$id]) }}>
+    <form method="POST" action={{ route('apps.add',['id'=>$id]) }} id="appForm">
         @csrf
+        <input type="hidden" id="original_app_url" value="{{ $appData->appUrl }}">
         <div class="bg-[#fff] p-[15px] md:p-[20px] rounded-[8px] md:rounded-[10px]">
             <h2 class="mb-[20px] text-[20px] text-[#1A1A1A] font-[600] ">
                 Basic Information 
@@ -16,7 +17,7 @@
 
                 <div class="flex flex-col gap-[10px] w-[100%]  md:w-[31%] 2xl:md:w-[32%]">
                     <label for="" class="flex items-center gap-[5px] text-[14] text-[#898989]">App URL <div class="text-[#F23765] mt-[-2px]">*</div></label>
-                    <input type="url" name="appurl" required class="flex px-[15px] py-[15px] rounded-[10px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none" value="{{ $appData->appUrl }}">
+                    <input type="url" name="appurl" id="app_url" required class="flex px-[15px] py-[15px] rounded-[10px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none" value="{{ old('url', $appData->appUrl) }}">
                     <div class="text-[12px] text-[#A1A1A1] leading-[10px]">Your website domain or AppStore link of your app.</div>
                 </div>
 
@@ -43,7 +44,7 @@
                     <label for="" class="flex items-center gap-[5px] text-[14] text-[#898989]">Rounding <div class="text-[#F23765] mt-[-2px]">*</div></label>
                     <select name="rounding" required class="flex px-[15px] py-[15px] rounded-[10px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none">
                         <option value="">Select Option</option>
-                        <option value="0" @if($appData->rounding==null) selected @endif>No Decimals</option>
+                        <option value="0" @if($appData->rounding==null || $appData->rounding==0) selected @endif>No Decimals</option>
                         <option value="1" @if($appData->rounding==1) selected @endif>One Decimal</option>
                         <option value="2" @if($appData->rounding==2) selected @endif>Two Decimals</option>
                     </select>
@@ -90,5 +91,23 @@
             message.style.color = "red";
         }
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('appForm'); // Replace with your form ID
+        const originalUrl = document.getElementById('original_app_url').value;
+        const appUrlInput = document.getElementById('app_url');
+
+        form.addEventListener('submit', function (e) {
+            if (originalUrl !== appUrlInput.value) {
+                e.preventDefault(); // Stop the form for now
+
+                if (confirm("⚠️ URL Change Detected\n\nYou are changing the app URL. The offerwall will be paused until the new URL is reviewed and approved by our team.\n\nPlease confirm to submit it for review.")) {
+                    form.submit(); // Proceed if confirmed
+                }else{
+                    $('#app_url').val(originalUrl);
+                }
+            }
+        });
+    });
 </script>
 @stop

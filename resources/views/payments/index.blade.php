@@ -3,7 +3,7 @@
 
 
 <div class="p-[15px] md:p-[35px]">
-    <div class="bg-[#fff] p-[10px] md:p-[15px] md:p-[20px] rounded-[5px] md:rounded-[10px] mb-[20px]">
+    {{-- <div class="bg-[#fff] p-[10px] md:p-[15px] md:p-[20px] rounded-[5px] md:rounded-[10px] mb-[20px]">
         <div class="flex gap-[10px] md:gap-[25px] w-[100%] ">
             <input type="text" name="" id=""
                 class="w-[100%] bg-[#F6F6F6] px-[15px] py-[12px] text-[12px] font-[500] text-[#808080] border-[1px] border-[#E6E6E6] rounded-[4px] hover:outline-none focus:outline-none"
@@ -73,7 +73,7 @@
             </div>
         </div>
 
-    </div>
+    </div> --}}
 
 
     <div class="flex items-center justify-between gap-[20px] mt-[20px]">

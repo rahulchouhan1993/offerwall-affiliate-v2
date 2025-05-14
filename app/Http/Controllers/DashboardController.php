@@ -12,13 +12,67 @@ use Illuminate\Support\Facades\Hash;
 class DashboardController extends Controller
 {
 
-    public function index(){
+    public function index(Request $request){
         $pageTitle = 'Dashboard';
-        $activeApps = App::where('affiliateId',auth()->user()->id)->where('status',1)->count();
-        $totalRevenue = Tracking::where('user_id',auth()->user()->id)->where('status',1)->sum('revenue');
-        $totalPayouts = Tracking::where('user_id',auth()->user()->id)->where('status',1)->sum('payout');
-        $loggesInUser = auth()->user()->id;
-        return view('dashboard.index',compact('pageTitle','activeApps','totalRevenue','totalPayouts','loggesInUser'));
+        if(!isset($request->range)){
+            return redirect()->route('dashboard.index',['range'=> date('m/d/Y', strtotime('-6 days')).' - '.date('m/d/Y')]);
+        }
+    
+        // Filters
+        $requestedParams = [];
+        $completeDate = $request->input('range');
+        $separateDate = explode('-', $completeDate);
+        $requestedParams['strd'] = trim($separateDate[0]);
+        $requestedParams['endd'] = trim($separateDate[1]);
+        $startDate = date('Y-m-d 00:00:00', strtotime(trim($separateDate[0])));
+        $endDate = date('Y-m-d 23::59:59', strtotime(trim($separateDate[1])));
+        $affiliateId = auth()->user()->id;
+    
+        // App Statistics
+        $activeApps = Tracking::where('status',1);
+        if ($startDate) {
+            $activeApps->whereDate('click_time', '>=', $startDate);
+        }
+        if ($endDate) {
+            $activeApps->whereDate('click_time', '<=', $endDate);
+        }
+        if ($affiliateId) {
+            $activeApps->where('user_id', $affiliateId);
+        }
+        $activeApps = $activeApps->distinct('user_id')->count();
+    
+        // Revenue Statistics
+        $totalRevenue = Tracking::where('status',1);
+        if ($startDate) {
+            $totalRevenue->whereDate('click_time', '>=', $startDate);
+        }
+        if ($endDate) {
+            $totalRevenue->whereDate('click_time', '<=', $endDate);
+        }
+        if ($affiliateId) {
+            $totalRevenue->where('user_id', $affiliateId);
+        }
+        $totalRevenue = $totalRevenue->sum('revenue');
+    
+        // Payout Statistics
+        $totalPayouts = Tracking::where('status',1);
+        if ($startDate) {
+            $totalPayouts->whereDate('click_time', '>=', $startDate);
+        }
+        if ($endDate) {
+            $totalPayouts->whereDate('click_time', '<=', $endDate);
+        }
+        if ($affiliateId) {
+            $totalPayouts->where('user_id', $affiliateId);
+        }
+        $totalPayouts = $totalPayouts->sum('payout');
+        return view('dashboard.index', compact(
+            'activeApps',
+            'pageTitle',
+            'totalRevenue',
+            'totalPayouts',
+            'requestedParams'
+        ));
     }
 
     public function setting(Request $request){

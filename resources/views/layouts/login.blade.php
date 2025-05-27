@@ -6,6 +6,7 @@
 	    <meta name="googlebot" content="noindex, nofollow">
         <link rel="icon" type="image/x-icon" href="/images/favicon.png">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}"> 
         <title>Affiliate | Login</title>
         <!-- Fonts -->
         <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"rel="stylesheet"/>

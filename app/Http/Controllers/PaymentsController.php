@@ -16,11 +16,11 @@ class PaymentsController extends Controller
             $dateFrom = date('Y-m-d',strtotime($firstConversion->created_at));
         }
         $dateTo = date('Y-m-d');
-       echo  $url = "https://api-makamobile.affise.com/3.0/payments?date_from={$dateFrom}&date_to={$dateTo}";
+        $url = "https://api-makamobile.affise.com/3.0/payments?date_from={$dateFrom}&date_to={$dateTo}";
         $response = HTTP::withHeaders([
             'API-Key' => 'c69003e37c7842104a08d9ea982c23a0',
         ])->get($url);
-        echo "<pre>"; print_r($response);die;
+        
         if ($response->successful()) {
             $alInvoices = $response->json();
             echo "<pre>"; print_r($alInvoices);die;
@@ -32,4 +32,11 @@ class PaymentsController extends Controller
         }
         return view('payments.index',compact('pageTitle'));
     }
+
+    public function paymentMethods(){
+        $pageTitle = 'Payment Methods';
+        return view('payments.methods',compact('pageTitle'));
+    }
 }
+
+

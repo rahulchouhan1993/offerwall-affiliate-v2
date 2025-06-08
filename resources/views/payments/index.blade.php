@@ -21,17 +21,17 @@
             <p class="text-[14px] font-[500] text-[#898989] mb-[20px]">Once you have reached the minimum amount and the
                 specified time has elapsed, the balance will be directly sent to your HereWPay account.</p>
             <div
-                class="flex items-center gap-[20px] p-[15px] bg-[#4ef9532e] border-[1px] border-[#4ef95370] rounded-[8px] h-[100px]">
-                <div class="flex items-center justify-center rounded-[100px] w-[60px] h-[60px] bg-[#fff]">
-                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                class="flex items-center gap-[10px] p-[10px] bg-[#4ef9532e] border-[1px] border-[#4ef95370] rounded-[8px]">
+                <div class="flex items-center justify-center rounded-[100px] w-[40px] h-[40px] bg-[#fff]">
+                    <svg class="w-[20px]" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M13.6414 0.573633C13.7547 0.525051 13.8767 0.5 14 0.5C14.1234 0.5 14.2454 0.525051 14.3587 0.573633L26.7441 5.88244L14 11.3442L1.25599 5.88244L13.6414 0.573633ZM0.345703 7.47363V21.4375C0.345703 21.8016 0.564173 22.1293 0.897339 22.2749L13.0898 27.5V12.9354L0.345703 7.47363ZM14.9103 12.9354L27.6544 7.47363V21.4375C27.6546 21.6157 27.6024 21.7901 27.5043 21.939C27.4062 22.0879 27.2666 22.2047 27.1028 22.2749L14.9103 27.5V12.9354Z"
                             fill="#4EF953" />
                     </svg>
                 </div>
                 <div class="flex flex-col gap-[1px]">
-                    <h2 class="text-[16px] font-[500] text-[#898989] mb-[0]">NET</h2>
-                    <h3 class="text-[24px] font-[700] text-[#1A1A1A]">30</h3>
+                    <h2 class="text-[14px] font-[500] text-[#898989] mb-[0]">Net</h2>
+                    <h3 class="text-[16px] font-[700] text-[#1A1A1A]">30</h3>
                 </div>
             </div>
         </div>
@@ -41,15 +41,15 @@
                 Earnings
             </h2>
             <div
-                class="flex items-center justify-between gap-[20px] p-[15px] bg-[#4ef9532e] border-[1px] border-[#4ef95370] rounded-[8px] h-[60px]">
-                <h2 class="text-[16px] font-[500] text-[#898989] mb-[0]">Balance</h2>
-                <h3 class="text-[24px] font-[700] text-[#1A1A1A]">30</h3>
+                class="flex items-center justify-between gap-[20px] p-[10px] bg-[#4ef9532e] border-[1px] border-[#4ef95370] rounded-[8px]">
+                <h2 class="text-[14px] font-[500] text-[#898989] mb-[0]">Balance</h2>
+                <h3 class="text-[16px] font-[700] text-[#1A1A1A]">30</h3>
             </div>
 
             <div
-                class="flex items-center justify-between gap-[20px] p-[15px] bg-[#4ef9532e] border-[1px] border-[#4ef95370] rounded-[8px] h-[60px]">
-                <h2 class="text-[16px] font-[500] text-[#898989] mb-[0]">Total Paid</h2>
-                <h3 class="text-[24px] font-[700] text-[#1A1A1A]">$350</h3>
+                class="flex items-center justify-between gap-[20px] p-[10px] bg-[#4ef9532e] border-[1px] border-[#4ef95370] rounded-[8px]">
+                <h2 class="text-[14px] font-[500] text-[#898989] mb-[0]">Total Paid</h2>
+                <h3 class="text-[16px] font-[700] text-[#1A1A1A]">$350</h3>
             </div>
         </div>
     </div>

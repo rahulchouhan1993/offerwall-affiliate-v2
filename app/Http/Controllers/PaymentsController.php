@@ -2,41 +2,49 @@
 
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
-use App\Models\Tracking;
-use Illuminate\Support\Facades\Http;
+use App\Models\PaymentMethods;
+use Illuminate\Http\Request;
 
 class PaymentsController extends Controller
 {
     public function index(){
         $pageTitle = 'Invoices';
-        $firstConversion = Tracking::where('user_id',auth()->user()->id)->where('status',2)->whereNotNull('conversion_id')->orderBy('id','asc')->first();
-        if(empty($firstConversion)){
-            $dateFrom = date('Y-m-d');
-        }else{
-            $dateFrom = date('Y-m-d',strtotime($firstConversion->created_at));
-        }
-        $dateTo = date('Y-m-d');
-        $url = "https://api-makamobile.affise.com/3.0/payments?date_from={$dateFrom}&date_to={$dateTo}";
-        $response = HTTP::withHeaders([
-            'API-Key' => 'c69003e37c7842104a08d9ea982c23a0',
-        ])->get($url);
-        
-        if ($response->successful()) {
-            $alInvoices = $response->json();
-            echo "<pre>"; print_r($alInvoices);die;
-            $pagination = $allAffiliates['pagination'] ?? []; // Extract pagination data
-            $currentPage = $pagination['page'] ?? 1; 
-            $totalCount = $pagination['total_count'] ?? 0;
-            $prevPage = $pagination['prev_page'] ?? null;
-            $nextPage = $pagination['next_page'] ?? null;
-        }
         return view('payments.index',compact('pageTitle'));
     }
 
-    public function paymentMethods(){
+    public function paymentMethods(Request $request){
         $pageTitle = 'Payment Methods';
-        return view('payments.methods',compact('pageTitle'));
+        $allPaymentMethods = PaymentMethods::where('user_id',auth()->user()->id)->get();
+        if($request->isMethod('post')){
+            if($request->rec_id>0){
+                $paymentMethods = PaymentMethods::where('id',$request->rec_id)->where('user_id',auth()->user()->id)->first();
+                if(empty($paymentMethods)){
+                    return redirect()->back()->with('error','Invalid Request');
+                }
+            }else{
+                $paymentMethods = new PaymentMethods();
+            }
+            $paymentMethods->user_id = auth()->user()->id; 
+            $paymentMethods->payment_method = $request->methods;
+            $paymentMethods->account_name = $request->account_name;
+            $paymentMethods->iban = $request->iban;
+            $paymentMethods->routing_number = $request->routing_number;
+            $paymentMethods->swift = $request->swift;
+            $paymentMethods->save();
+            if($request->rec_id>0){
+                return redirect()->back()->with('success','Payment Method Updated Successfully.');
+            }else{
+                return redirect()->back()->with('success','Payment Method Added Successfully.');
+            }
+        }
+        return view('payments.methods',compact('pageTitle','allPaymentMethods'));
+    }
+
+    public function updateMethodStatus(Request $request){
+        $record = PaymentMethods::find($request->updateid);
+        $record->status = ($record->status) ? 0 : 1;
+        $record->save();
+
+        return redirect()->back()->with('success','Status Updated');
     }
 }
-
-

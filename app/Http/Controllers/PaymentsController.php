@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
-use App\Models\PaymentMethods;
+use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
 
 class PaymentsController extends Controller
@@ -14,15 +14,15 @@ class PaymentsController extends Controller
 
     public function paymentMethods(Request $request){
         $pageTitle = 'Payment Methods';
-        $allPaymentMethods = PaymentMethods::where('user_id',auth()->user()->id)->get();
+        $allPaymentMethods = PaymentMethod::where('user_id',auth()->user()->id)->get();
         if($request->isMethod('post')){
             if($request->rec_id>0){
-                $paymentMethods = PaymentMethods::where('id',$request->rec_id)->where('user_id',auth()->user()->id)->first();
+                $paymentMethods = PaymentMethod::where('id',$request->rec_id)->where('user_id',auth()->user()->id)->first();
                 if(empty($paymentMethods)){
                     return redirect()->back()->with('error','Invalid Request');
                 }
             }else{
-                $paymentMethods = new PaymentMethods();
+                $paymentMethods = new PaymentMethod();
             }
             $paymentMethods->user_id = auth()->user()->id; 
             $paymentMethods->payment_method = $request->methods;
@@ -41,7 +41,7 @@ class PaymentsController extends Controller
     }
 
     public function updateMethodStatus(Request $request){
-        $record = PaymentMethods::find($request->updateid);
+        $record = PaymentMethod::find($request->updateid);
         $record->status = ($record->status) ? 0 : 1;
         $record->save();
 

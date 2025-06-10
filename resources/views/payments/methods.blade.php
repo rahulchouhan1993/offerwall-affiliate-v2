@@ -23,8 +23,8 @@
                         <th class="bg-[#7FB5CB] text-[14px] font-[500] text-[#fff] px-[10px] py-[13px] text-left  whitespace-nowrap">
                             ABA Routing Number</th>
                         <th class="bg-[#7FB5CB] text-[14px] font-[500] text-[#fff] px-[10px] py-[13px] text-left  whitespace-nowrap">SWIFT / BIC</th>
-                        <th class="bg-[#7FB5CB] text-[14px] font-[500] text-[#fff] px-[10px] py-[13px] text-left  whitespace-nowrap">
-                            Status</th>
+                        {{-- <th class="bg-[#7FB5CB] text-[14px] font-[500] text-[#fff] px-[10px] py-[13px] text-left  whitespace-nowrap">
+                            Status</th> --}}
                         <th
                             class="bg-[#7FB5CB] rounded-tr-[10px] text-[14px] font-[500] text-[#fff] px-[10px] py-[13px] text-left  whitespace-nowrap">
                             Action</th>
@@ -38,13 +38,13 @@
                         <td value="{{ $paymentMethod->iban }}" id="method-iban-{{ $paymentMethod->id }}" class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">{{ $paymentMethod->iban }}</td>
                         <td value="{{ $paymentMethod->routing_number }}" id="method-routing-{{ $paymentMethod->id }}" class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">{{ $paymentMethod->routing_number }}</td>
                         <td value="{{ $paymentMethod->swift }}" id="method-swift-{{ $paymentMethod->id }}" class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">{{ $paymentMethod->swift }}</td>
-                        <td class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">
+                        {{-- <td class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">
                             <label class="relative cursor-pointer">
                                 <input rec-id="{{ $paymentMethod->id }}" type="checkbox" name="payment" value="option1" class="status-method sr-only peer" @if($paymentMethod->status) checked @endif>
                                 <div class="w-10 h-5 rounded-full bg-gray-300 peer-checked:bg-[#4EF953] transition-colors duration-300"></div>
                                 <div class="absolute left-0 top-0 w-5 h-5 bg-white border rounded-full shadow transform peer-checked:translate-x-5 transition-transform duration-300"></div>
                             </label>
-                        </td>
+                        </td> --}}
 
                         <td class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-center  whitespace-nowrap ">
                             <button rec-id="{{ $paymentMethod->id }}"  class="edit-method"

@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\PaymentMethod;
+use App\Models\Invoice;
 use Illuminate\Http\Request;
-
+use Mpdf\Mpdf;
 class PaymentsController extends Controller
 {
     public function index(){
         $pageTitle = 'Invoices';
-        return view('payments.index',compact('pageTitle'));
+        $allInvoices = Invoice::where('status','!=',4)->where('status','!=',0)->where('user_id',auth()->user()->id)->get();
+        return view('payments.index',compact('pageTitle','allInvoices'));
     }
 
     public function paymentMethods(Request $request){
@@ -46,5 +48,21 @@ class PaymentsController extends Controller
         $record->save();
 
         return redirect()->back()->with('success','Status Updated');
+    }
+
+    public function download($id)
+    {   
+        $invoiceDetails = Invoice::where('id',$id)->with('invoicedetails','user')->first();
+        $html = view('invoices.show',compact('invoiceDetails'))->render();
+
+        $mpdf = new Mpdf([
+            'default_font' => 'dejavusans',
+            'tempDir' => storage_path('app/mpdf-temp')
+        ]);
+        $mpdf->WriteHTML($html);
+
+        return response($mpdf->Output("Invoice_{$id}.pdf", 'I'), 200)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'attachment; filename="Invoice_.pdf"');
     }
 }

@@ -56,7 +56,7 @@
 
 
 
-    <div class="flex items-center justify-between gap-[20px] mt-[20px]">
+    {{-- <div class="flex items-center justify-between gap-[20px] mt-[20px]">
         <div class="flex justify-between items-start md:items-center flex-col md:flex-row gap-[15px] w-[100%] bg-[#fff] rounded-[5px] md:rounded-[10px] p-[15px]">
             <div class="flex flex-col gap-[5px]">
                 <h2 class="mb-[2px] text-[20px] text-[#1A1A1A] font-[600] ">
@@ -73,7 +73,7 @@
             </div>
         </div>
 
-    </div>
+    </div> --}}
 
 
     <div class="flex items-center justify-between gap-[20px] mt-[20px]">
@@ -82,20 +82,20 @@
                 <h2 class="text-[20px] text-[#1A1A1A] font-[600] ">
                     Bills/Invoices
                 </h2>
-                <!-- Filters -->
-                <div class="flex flex-wrap items-center gap-[10px]">
-                    <!-- Date Range -->
+                
+                {{-- <div class="flex flex-wrap items-center gap-[10px]">
+                    
                     <input type="date" class="h-[37px] text-[14px] border border-[#E6E6E6] rounded-[5px] px-[10px] py-[6px] text-[#1A1A1A] !outline-none focus:!outline-none">
                     <span class="text-[#808080] text-[14px]">to</span>
                     <input type="date" class="h-[37px] text-[14px] border border-[#E6E6E6] rounded-[5px] px-[10px] py-[6px] text-[#1A1A1A] !outline-none focus:!outline-none">
 
-                    <!-- Status Dropdown -->
+                    
                     <select class="h-[37px] text-[14px] border border-[#E6E6E6] rounded-[5px] px-[10px] py-[6px] text-[#1A1A1A] !outline-none focus:!outline-none">
                         <option value="">Status</option>
                         <option value="active">Active</option>
                         <option value="inactive">Inactive</option>
                     </select>
-                </div>
+                </div> --}}
             </div>
             <div class="w-[100%] overflow-x-auto tableScroll">
                 <table class="w-[100%] border-collapse border-spacing-0 rounded-[10px] border-separate border border-[#E6E6E6]">
@@ -103,47 +103,52 @@
                         <th
                             class="bg-[#F6F6F6] rounded-tl-[10px] text-[14px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left  whitespace-nowrap ">
                             Invoice Number</th>
-                        <th class="bg-[#F6F6F6] text-[14px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left  whitespace-nowrap">
-                            Description</th>
+                        
                         <th class="bg-[#F6F6F6] text-[14px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left  whitespace-nowrap">
                             Invoice Date</th>
                         <th class="bg-[#F6F6F6] text-[14px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left  whitespace-nowrap">
                             Amount</th>
-                        <th class="bg-[#F6F6F6] text-[14px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left  whitespace-nowrap">Due
-                            Date</th>
-                        <th class="bg-[#F6F6F6] text-[14px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left  whitespace-nowrap">
-                            Payment Date</th>
                         <th class="bg-[#F6F6F6] text-[14px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left  whitespace-nowrap">
                             Status</th>
+                        <th class="bg-[#F6F6F6] text-[14px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left  whitespace-nowrap">
+                            Created Date</th>
+                        
                         <th
                             class="bg-[#F6F6F6] rounded-tr-[10px] text-[14px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left  whitespace-nowrap">
                             Action</th>
                     </tr>
 
-                    <tr>
-                        <td class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">Bill-00660455</td>
-                        <td class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">SEP 2024 Activity</td>
-                        <td class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">Sep 30, 2024</td>
-                        <td class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">USD 7.94</td>
-                        <td class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">Nov 30, 2024</td>
-                        <td class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">Nov 30, 2024</td>
-                        <td class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">
-                            <div
-                                class="inline-flex bg-[#F3FEE7] border border-[#BCEE89] rounded-[5px] px-[10px] py-[4px] text-[12px] font-[600] text-[#6EBF1A] text-center uppercase">
-                                Paid</div>
-                        </td>
-                        <td class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">
-                            <button
-                                class="inline-flex bg-[#4ef9532e] border border-[#4ef95370] rounded-[5px] px-[10px] py-[4px] text-[12px] font-[600] text-[#6EBF1A] text-center uppercase"><svg
-                                    width="12" height="16" viewBox="0 0 12 16" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M6.75 1C6.75 0.585786 6.41421 0.25 6 0.25C5.58579 0.25 5.25 0.585786 5.25 1H6.75ZM5.46967 15.5303C5.76256 15.8232 6.23744 15.8232 6.53033 15.5303L11.3033 10.7574C11.5962 10.4645 11.5962 9.98959 11.3033 9.6967C11.0104 9.40381 10.5355 9.40381 10.2426 9.6967L6 13.9393L1.75736 9.6967C1.46447 9.40381 0.989592 9.40381 0.696699 9.6967C0.403806 9.98959 0.403806 10.4645 0.696699 10.7574L5.46967 15.5303ZM5.25 1V15H6.75V1H5.25Z"
-                                        fill="#4EF953" />
-                                </svg>
-                            </button>
-                        </td>
-                    </tr>
+                    @if($allInvoices->isNotEmpty())
+                    @foreach ($allInvoices as $invoice )
+                        <tr>
+                            <td class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">{{ env('INVOICE_ALIAS')}}{{ date('Y',strtotime($invoice->invoice_date)) }}{{ $invoice->invoice_number }}</td>
+                            <td class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">{{ date('d M Y',strtotime($invoice->start_date)) }} - {{ date('d M Y',strtotime($invoice->end_date)) }}</td>
+                            <td class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">{{ number_format($invoice->total_price,2) }}</td>
+                            <td class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">
+                                @if($invoice->status==0)
+                                    <a href="javascript:void(0);" class="inline-flex bg-[#fee7e7] border border-[#ee8989] rounded-[5px] px-[10px] py-[4px] text-[12px] font-[600] text-[#bf1a1a] text-center uppercase">Draft</a>
+                                @elseif ($invoice->status==1)
+                                    <a href="javascript:void(0);" class="inline-flex bg-[#e7f2fe] border border-[#89abee] rounded-[5px] px-[10px] py-[4px] text-[12px] font-[600] text-[#1a64bf] text-center uppercase">In Process</a>
+                                @elseif ($invoice->status==2)
+                                    <a href="javascript:void(0);" class="inline-flex bg-[#F3FEE7] border border-[#BCEE89] rounded-[5px] px-[10px] py-[4px] text-[12px] font-[600] text-[#6EBF1A] text-center uppercase">Paid</a>
+                                @endif
+                            </td>
+                            <td class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">{{ date('d M Y',strtotime($invoice->created_at)) }}</td>
+                            <td class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">
+                                
+                                <a target="_blank" href="{{ route('invoice.download',['id' => $invoice->id]) }}"
+                                    class="inline-flex bg-[#4EF953] border border-[#4ef95370] rounded-[5px] px-[10px] py-[4px] text-[12px] font-[600] text-[#4EF953] text-center uppercase"><svg
+                                        width="12" height="16" viewBox="0 0 12 16" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M6.75 1C6.75 0.585786 6.41421 0.25 6 0.25C5.58579 0.25 5.25 0.585786 5.25 1H6.75ZM5.46967 15.5303C5.76256 15.8232 6.23744 15.8232 6.53033 15.5303L11.3033 10.7574C11.5962 10.4645 11.5962 9.98959 11.3033 9.6967C11.0104 9.40381 10.5355 9.40381 10.2426 9.6967L6 13.9393L1.75736 9.6967C1.46447 9.40381 0.989592 9.40381 0.696699 9.6967C0.403806 9.98959 0.403806 10.4645 0.696699 10.7574L5.46967 15.5303ZM5.25 1V15H6.75V1H5.25Z"
+                                            fill="#000" />
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
+                    @endforeach
+                    @endif
                 </table>
             </div>
             <div class="w-[100%] flex items-center justify-between flex-col gap-[15px] md:flex-row mt-[30px]">

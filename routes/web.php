@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::match(['post','get'],'/payment-methods', [PaymentsController::class, 'paymentMethods'])->name('payment.methods');
     Route::get('/now-payments', [PaymentsController::class, 'index'])->name('payment.index');
     Route::post('/update-method-status', [PaymentsController::class, 'updateMethodStatus'])->name('update.method.status');
+    Route::get('/download/{id}', [PaymentsController::class, 'download'])->name('invoice.download');
 
     // Reports
     Route::get('/statistics', [ReportsController::class, 'statistics'])->name('report.statistics');

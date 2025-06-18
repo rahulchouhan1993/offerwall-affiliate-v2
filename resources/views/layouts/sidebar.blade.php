@@ -95,7 +95,7 @@
     </div>
 
     <div class="mb-[20px] 2xl:mb-[50px]">
-        <h2 class="text-[12px] font-[600] text-[#FFFFFD] uppercase mb-[5px] px-[10px]">Financials</h2>
+        <h2 class="text-[12px] font-[600] text-[#FFFFFD] uppercase mb-[5px] px-[10px]">Finance</h2>
         <a href="{{ route('payment.methods') }}"
             class="group flex items-center gap-[10px] px-[10px] py-[10px] text-[16px] font-[400] text-[#FFFFFD] hover:text-[#4EF953] @if(Route::currentRouteName()=='payment.methods') active @endif">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -104,7 +104,7 @@
                 </svg>
 
 
-            Payment Methods
+            Payment Settings
         </a>
 
         <a href="{{ route('payment.index') }}"

@@ -13,6 +13,13 @@ class PaymentMethod extends Model
         'iban',
         'routing_number',
         'swift',
-        'status'
+        'status',
+        'account_type',
+        'country',
+        'city',
+        'address',
+        'post_code',
+        'wallet_address',
+        'paypal_email',
     ];
 }

@@ -9,8 +9,10 @@
                     <h2 class="text-[16px] text-[#1A1A1A] font-[500] ">
                         Payment Methods
                     </h2>
-                    <button type="button" onclick="openModal()"
-                        class="bg-[#4EF953] px-[20px] py-[5px] rounded-[4px] text-[14px] font-[500] text-[#000] text-center cursor-pointer">Add</button>
+                    @if($allPaymentMethods->isEmpty())
+                    <a href="{{ route('add.method') }}" 
+                        class="bg-[#4EF953] px-[20px] py-[5px] rounded-[4px] text-[14px] font-[500] text-[#000] text-center cursor-pointer">Add</a>
+                    @endif
                 </div>
                 <div class="w-[100%] overflow-x-auto tableScroll">
                     <table
@@ -24,13 +26,10 @@
                                 Account Name</th>
                             <th
                                 class="bg-[#7FB5CB] text-[14px] font-[500] text-[#fff] px-[10px] py-[13px] text-left  whitespace-nowrap">
-                                IBAN</th>
+                                Account Number</th>
                             <th
                                 class="bg-[#7FB5CB] text-[14px] font-[500] text-[#fff] px-[10px] py-[13px] text-left  whitespace-nowrap">
                                 ABA Routing Number</th>
-                            <th
-                                class="bg-[#7FB5CB] text-[14px] font-[500] text-[#fff] px-[10px] py-[13px] text-left  whitespace-nowrap">
-                                SWIFT / BIC</th>
                             {{-- <th class="bg-[#7FB5CB] text-[14px] font-[500] text-[#fff] px-[10px] py-[13px] text-left  whitespace-nowrap">
                             Status</th> --}}
                             <th
@@ -44,39 +43,29 @@
                                     <td id="method-name-{{ $paymentMethod->id }}"
                                         value="{{ $paymentMethod->payment_method }}"
                                         class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">
-                                        @if ($paymentMethod->payment_method == 'now-payment')
-                                            Now Payment
-                                        @elseif ($paymentMethod->payment_method == 'wise-payment')
-                                            Wise Payment
+                                        @if ($paymentMethod->payment_method == '1')
+                                            Wise Payment - {{ $paymentMethod->account_type }}
+                                        @elseif ($paymentMethod->payment_method == '2')
+                                            Crypto - {{ $paymentMethod->wallet_address }}
                                         @else
-                                            N/A
+                                            Paypal - {{ $paymentMethod->paypal_email }}
                                         @endif
                                     </td>
                                     <td value="{{ $paymentMethod->account_name }}"
                                         id="method-account-name-{{ $paymentMethod->id }}"
                                         class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">
-                                        {{ $paymentMethod->account_name }}</td>
+                                        {{ $paymentMethod->account_name ?? 'N/A' }}</td>
                                     <td value="{{ $paymentMethod->iban }}" id="method-iban-{{ $paymentMethod->id }}"
                                         class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">
-                                        {{ $paymentMethod->iban }}</td>
+                                        {{ $paymentMethod->iban ?? 'N/A' }}</td>
                                     <td value="{{ $paymentMethod->routing_number }}"
                                         id="method-routing-{{ $paymentMethod->id }}"
                                         class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">
-                                        {{ $paymentMethod->routing_number }}</td>
-                                    <td value="{{ $paymentMethod->swift }}" id="method-swift-{{ $paymentMethod->id }}"
-                                        class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">
-                                        {{ $paymentMethod->swift }}</td>
-                                    {{-- <td class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">
-                            <label class="relative cursor-pointer">
-                                <input rec-id="{{ $paymentMethod->id }}" type="checkbox" name="payment" value="option1" class="status-method sr-only peer" @if ($paymentMethod->status) checked @endif>
-                                <div class="w-10 h-5 rounded-full bg-gray-300 peer-checked:bg-[#4EF953] transition-colors duration-300"></div>
-                                <div class="absolute left-0 top-0 w-5 h-5 bg-white border rounded-full shadow transform peer-checked:translate-x-5 transition-transform duration-300"></div>
-                            </label>
-                        </td> --}}
-
+                                        {{ $paymentMethod->routing_number ?? 'N/A' }}</td>
+                                    
                                     <td
                                         class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-center  whitespace-nowrap ">
-                                        <button rec-id="{{ $paymentMethod->id }}" class="edit-method"><svg width="19"
+                                        <a href="{{ route('add.method',['id'=>$paymentMethod->id]) }}" class="edit-method"><svg width="19"
                                                 height="19" viewBox="0 0 19 19" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -90,7 +79,7 @@
                                             </svg>
 
                                             </svg>
-                                        </button>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -103,90 +92,16 @@
         </div>
     </div>
 
-    <!-- Modal -->
-    <div id="myModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 p-4 max-h-[100vh] overflow-y-auto">
-        <div class="bg-white w-full max-w-md mx-auto p-6 rounded-lg shadow-lg relative overflow-y-auto">
-            <div class="modal_body">
 
-                <form method="POST" action="{{ route('payment.methods') }}">
-                    @csrf
-                    <input type="hidden" id="payment-method-id" name="rec_id" value="0">
-                    <h2 class="text-xl font-semibold ">Add Payment Method</h2>
-                    <div class="space-y-4 mt-4">
-                        <div class="w-full">
-                            <p class="text-[14px] text-[#898989]">Select Method</p>
-                            <select name="methods"
-                                class="method-name w-full flex px-[15px] py-[15px] rounded-[5px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none"
-                                required>
-                                <option value="">Select</option>
-                                <option value="now-payment">Now Payments</option>
-                                <option value="wise-payment">Wise Payments</option>
-                            </select>
-                        </div>
-                        <div class="w-full">
-                            <p class="text-[14px] text-[#898989]">Name on account</p>
-                            <input
-                                class="method-account-name w-full flex px-[15px] py-[15px] rounded-[5px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none"
-                                type="text" name="account_name" required>
-                        </div>
-                        <div class="w-full">
-                            <p class="text-[14px] text-[#898989]">IBAN</p>
-                            <input
-                                class="method-iban w-full flex px-[15px] py-[15px] rounded-[5px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none"
-                                type="text" name="iban" required>
-                        </div>
-                        <div class="w-full">
-                            <p class="text-[14px] text-[#898989]">ABA Routing number</p>
-                            <input
-                                class="method-routing  w-full flex px-[15px] py-[15px] rounded-[5px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none"
-                                type="text" name="routing_number" required>
-                        </div>
-                        <div class="w-full">
-                            <p class="text-[14px] text-[#898989]">SWIFT / BIC</p>
-                            <input
-                                class="method-swift  w-full flex px-[15px] py-[15px] rounded-[5px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none"
-                                type="text" name="swift" required>
-                        </div>
-
-                        <div class="flex justify-end space-x-2 mt-4">
-                            <button type="button" onclick="closeModal()"
-                                class="px-4 py-2 bg-[#7FB5CB] w-[100px]  rounded-[4px] text-[14px] font-[500] text-[#000] text-center">Cancel</button>
-                            <button class="px-4 py-2 bg-[#49FB53] text-black rounded">Save</button>
-                        </div>
-                    </div>
-                    <button onclick="closeModal()"
-                        class="absolute top-1 right-2 text-gray-500 hover:text-gray-700 text-xl">&times;</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Script -->
     <script>
-        function openModal() {
-            document.getElementById('myModal').classList.remove('hidden');
-            document.getElementById('myModal').classList.add('block');
-        }
-
-        function closeModal() {
-            document.getElementById('myModal').classList.add('hidden');
-            document.getElementById('myModal').classList.remove('block');
-        }
+        
 
         $(document).on('change', '.status-method', function() {
             $('#updateid').val($(this).attr('rec-id'));
             $('#update-status-form').submit();
         })
 
-        $(document).on('click', '.edit-method', function() {
-            $('#payment-method-id').val($(this).attr('rec-id'));
-            $('.method-name').val($('#method-name-' + $(this).attr('rec-id')).attr('value'));
-            $('.method-account-name').val($('#method-account-name-' + $(this).attr('rec-id')).attr('value'));
-            $('.method-iban').val($('#method-iban-' + $(this).attr('rec-id')).attr('value'));
-            $('.method-routing').val($('#method-routing-' + $(this).attr('rec-id')).attr('value'));
-            $('.method-swift').val($('#method-swift-' + $(this).attr('rec-id')).attr('value'));
-            openModal();
-        })
+        
     </script>
     <form method="POST" id="update-status-form" action="{{ route('update.method.status') }}">
         @csrf

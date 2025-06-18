@@ -30,8 +30,8 @@
                     </svg>
                 </div>
                 <div class="flex flex-col gap-[1px]">
-                    <h2 class="text-[14px] font-[500] text-[#898989] mb-[0]">Net</h2>
-                    <h3 class="text-[16px] font-[700] text-[#1A1A1A]">30</h3>
+                    <h2 class="text-[14px] font-[500] text-[#898989] mb-[0]">USD</h2>
+                    <h3 class="text-[16px] font-[700] text-[#1A1A1A]">$ 30</h3>
                 </div>
             </div>
         </div>
@@ -43,13 +43,13 @@
             <div
                 class="flex items-center justify-between gap-[20px] p-[10px] bg-[#4ef9532e] border-[1px] border-[#4ef95370] rounded-[8px]">
                 <h2 class="text-[14px] font-[500] text-[#898989] mb-[0]">Balance</h2>
-                <h3 class="text-[16px] font-[700] text-[#1A1A1A]">30</h3>
+                <h3 class="text-[16px] font-[700] text-[#1A1A1A]">$ 30</h3>
             </div>
 
             <div
                 class="flex items-center justify-between gap-[20px] p-[10px] bg-[#4ef9532e] border-[1px] border-[#4ef95370] rounded-[8px]">
                 <h2 class="text-[14px] font-[500] text-[#898989] mb-[0]">Total Paid</h2>
-                <h3 class="text-[16px] font-[700] text-[#1A1A1A]">$350</h3>
+                <h3 class="text-[16px] font-[700] text-[#1A1A1A]">$ 350</h3>
             </div>
         </div>
     </div>
@@ -101,20 +101,20 @@
                 <table class="w-[100%] border-collapse border-spacing-0 rounded-[10px] border-separate border border-[#E6E6E6]">
                     <tr>
                         <th
-                            class="bg-[#F6F6F6] rounded-tl-[10px] text-[14px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left  whitespace-nowrap ">
+                            class="bg-[#7FB5CB] rounded-tl-[10px] text-[14px] font-[500] text-[#fff] px-[10px] py-[13px] text-left  whitespace-nowrap ">
                             Invoice Number</th>
                         
-                        <th class="bg-[#F6F6F6] text-[14px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left  whitespace-nowrap">
+                        <th class="bg-[#7FB5CB] text-[14px] font-[500] text-[#fff] px-[10px] py-[13px] text-left  whitespace-nowrap">
                             Invoice Date</th>
-                        <th class="bg-[#F6F6F6] text-[14px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left  whitespace-nowrap">
+                        <th class="bg-[#7FB5CB] text-[14px] font-[500] text-[#fff] px-[10px] py-[13px] text-left  whitespace-nowrap">
                             Amount</th>
-                        <th class="bg-[#F6F6F6] text-[14px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left  whitespace-nowrap">
+                        <th class="bg-[#7FB5CB] text-[14px] font-[500] text-[#fff] px-[10px] py-[13px] text-left  whitespace-nowrap">
                             Status</th>
-                        <th class="bg-[#F6F6F6] text-[14px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left  whitespace-nowrap">
+                        <th class="bg-[#7FB5CB] text-[14px] font-[500] text-[#fff] px-[10px] py-[13px] text-left  whitespace-nowrap">
                             Created Date</th>
                         
                         <th
-                            class="bg-[#F6F6F6] rounded-tr-[10px] text-[14px] font-[500] text-[#1A1A1A] px-[10px] py-[13px] text-left  whitespace-nowrap">
+                            class="bg-[#7FB5CB] rounded-tr-[10px] text-[14px] font-[500] text-[#fff] px-[10px] py-[13px] text-left  whitespace-nowrap">
                             Action</th>
                     </tr>
 
@@ -151,7 +151,7 @@
                     @endif
                 </table>
             </div>
-            <div class="w-[100%] flex items-center justify-between flex-col gap-[15px] md:flex-row mt-[30px]">
+            {{-- <div class="w-[100%] flex items-center justify-between flex-col gap-[15px] md:flex-row mt-[30px]">
                 <h2 class="text-[14px] text-[#808080] font-[500]">Showing 1 to 4 of 4 entries</h2>
                 <div class="inline-flex gap-[8px]">
                     <a href="#"
@@ -181,7 +181,7 @@
 
 
                 </div>
-            </div>
+            </div> --}}
         </div>
 
     </div>

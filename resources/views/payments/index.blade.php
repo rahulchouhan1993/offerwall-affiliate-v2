@@ -43,13 +43,13 @@
             <div
                 class="flex items-center justify-between gap-[20px] p-[10px] bg-[#4ef9532e] border-[1px] border-[#4ef95370] rounded-[8px]">
                 <h2 class="text-[14px] font-[500] text-[#898989] mb-[0]">Balance</h2>
-                <h3 class="text-[16px] font-[700] text-[#1A1A1A]">$ 30</h3>
+                <h3 class="text-[16px] font-[700] text-[#1A1A1A]">$ {{ number_format($totalPendingPayout,2) }}</h3>
             </div>
 
             <div
                 class="flex items-center justify-between gap-[20px] p-[10px] bg-[#4ef9532e] border-[1px] border-[#4ef95370] rounded-[8px]">
                 <h2 class="text-[14px] font-[500] text-[#898989] mb-[0]">Total Paid</h2>
-                <h3 class="text-[16px] font-[700] text-[#1A1A1A]">$ 350</h3>
+                <h3 class="text-[16px] font-[700] text-[#1A1A1A]">$ {{ number_format($cardData->total_payout_with_vat ?? 0,2) }}</h3>
             </div>
         </div>
     </div>
@@ -121,7 +121,7 @@
                     @if($allInvoices->isNotEmpty())
                     @foreach ($allInvoices as $invoice )
                         <tr>
-                            <td class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">{{ env('INVOICE_ALIAS')}}{{ date('Y',strtotime($invoice->invoice_date)) }}{{ $invoice->invoice_number }}</td>
+                            <td class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">{{ env('INVOICE_ALIAS')}}-{{ date('Y',strtotime($invoice->invoice_date)) }}-{{ date('m',strtotime($invoice->invoice_date)) }}-{{ $invoice->invoice_number }}</td>
                             <td class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">{{ date('d M Y',strtotime($invoice->start_date)) }} - {{ date('d M Y',strtotime($invoice->end_date)) }}</td>
                             <td class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">{{ number_format($invoice->total_price,2) }}</td>
                             <td class="text-[14px] font-[500] text-[#808080] px-[10px] py-[10px] text-left  whitespace-nowrap ">

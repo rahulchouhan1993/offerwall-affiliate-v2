@@ -10,7 +10,7 @@
             <div class="flex flex-wrap gap-x-[20px] gap-y-[30px] w-[100%] ">
                 <div class="flex flex-col gap-[10px] w-[100%] ">
                     <label for="" class="flex items-center gap-[5px] text-[14] text-[#898989]">Payment Method <div class="text-[#F23765] mt-[-2px]">*</div></label>
-                    <select name="method" required class="payment-method flex px-[15px] py-[15px] rounded-[10px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none">
+                    <select name="method" required class="payment-method flex px-[15px] py-[15px] rounded-[10px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none" @if($id>0) disabled @endif>
                         <option value="">Select Option</option>
                         <option value="1" @if($paymentMethods->payment_method==1) selected @endif>ACH/SWIFT (Wise)</option>
                         <option value="2" @if($paymentMethods->payment_method==2) selected @endif>Crypto</option>
@@ -27,8 +27,12 @@
             <div class="section-1 common-section" style="display:none">
                 <div class="flex flex-wrap gap-x-[20px] gap-y-[30px] w-[100%] ">
                     <div class="flex flex-col gap-[10px] w-[100%] ">
+                        <a class="flex bg-[#49fb53] px-[10px] py-[11px] w-[130px] rounded-[4px] text-[14px] font-[500] text-[#000] text-center" href="https://wise.com/invite/ihpc/karlb475" target="_blank">Sign Up For Wise</a>
+                    </div>
+                    
+                    <div class="flex flex-col gap-[10px] w-[100%] ">
                         <label for="" class="flex items-center gap-[5px] text-[14] text-[#898989]">Account Type <div class="text-[#F23765] mt-[-2px]">*</div></label>
-                        <select name="account_type"  class="account-type-sel flex px-[15px] py-[15px] rounded-[10px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none">
+                        <select name="account_type"  class="account-type-sel flex px-[15px] py-[15px] rounded-[10px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none" @if($id>0) disabled @endif>
                             <option value="">Select Option</option>
                             <option value="ACH" @if($paymentMethods->account_type=='ACH') selected @endif>ACH</option>
                             <option value="SWIFT" @if($paymentMethods->account_type=='SWIFT') selected @endif>SWIFT</option>
@@ -36,19 +40,19 @@
                     </div>
                     <div class="flex flex-col gap-[10px] w-[100%] ">
                         <label for="" class="flex items-center gap-[5px] text-[14] text-[#898989]">Name of business/organisation <div class="text-[#F23765] mt-[-2px]">*</div></label>
-                        <input type="text" name="org_name"  class="flex px-[15px] py-[15px] rounded-[10px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none" value="{{ $paymentMethods->account_name }}">
+                        <input type="text" name="org_name"  class="flex px-[15px] py-[15px] rounded-[10px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none" value="{{ $paymentMethods->account_name }}" @if($id>0) disabled @endif>
                     </div>
                     <div class="flex flex-col gap-[10px] w-[100%] ">
                         <label for="" class="flex items-center gap-[5px] text-[14] text-[#898989] routing-label">Routing Number <div class="text-[#F23765] mt-[-2px]">*</div></label>
-                        <input type="text" name="routing_number"  class="flex px-[15px] py-[15px] rounded-[10px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none" value="{{ $paymentMethods->routing_number }}">
+                        <input type="text" name="routing_number"  class="flex px-[15px] py-[15px] rounded-[10px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none" value="{{ $paymentMethods->routing_number }}" @if($id>0) disabled @endif>
                     </div>
                     <div class="flex flex-col gap-[10px] w-[100%] ">
                         <label for="" class="flex items-center gap-[5px] text-[14] text-[#898989] account-label">Account Number <div class="text-[#F23765] mt-[-2px]">*</div></label>
-                        <input type="text" name="account_number"  class="flex px-[15px] py-[15px] rounded-[10px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none" value="{{ $paymentMethods->iban }}">
+                        <input type="text" name="account_number"  class="flex px-[15px] py-[15px] rounded-[10px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none" value="{{ $paymentMethods->iban }}" @if($id>0) disabled @endif>
                     </div>
                     <div class="flex flex-col gap-[10px] w-[100%] ">
                         <label for="" class="flex items-center gap-[5px] text-[14] text-[#898989]">Country <div class="text-[#F23765] mt-[-2px]">*</div></label>
-                        <select name="country" class="select-country-met flex px-[15px] py-[15px] rounded-[10px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none">
+                        <select name="country" class="select-country-met flex px-[15px] py-[15px] rounded-[10px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none" @if($id>0) disabled @endif>
                             <option value="">Select</option>
                             @foreach ($allCountries as $country )
                                 <option value="{{ $country->iso }}" @if($paymentMethods->country==$country->iso) selected @endif>{{ $country->nicename }}</option>
@@ -57,15 +61,15 @@
                     </div>
                     <div class="flex flex-col gap-[10px] w-[100%] ">
                         <label for="" class="flex items-center gap-[5px] text-[14] text-[#898989]">City <div class="text-[#F23765] mt-[-2px]">*</div></label>
-                        <input type="text" name="city"  class="flex px-[15px] py-[15px] rounded-[10px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none" value="{{ $paymentMethods->city }}">
+                        <input type="text" name="city"  class="flex px-[15px] py-[15px] rounded-[10px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none" value="{{ $paymentMethods->city }}" @if($id>0) disabled @endif>
                     </div>
                     <div class="flex flex-col gap-[10px] w-[100%] ">
                         <label for="" class="flex items-center gap-[5px] text-[14] text-[#898989]">Recipient Address <div class="text-[#F23765] mt-[-2px]">*</div></label>
-                        <input type="text" name="address"  class="flex px-[15px] py-[15px] rounded-[10px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none" value="{{ $paymentMethods->address }}">
+                        <input type="text" name="address"  class="flex px-[15px] py-[15px] rounded-[10px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none" value="{{ $paymentMethods->address }}" @if($id>0) disabled @endif>
                     </div>
                     <div class="flex flex-col gap-[10px] w-[100%] ">
                         <label for="" class="flex items-center gap-[5px] text-[14] text-[#898989]">Post Code<div class="text-[#F23765] mt-[-2px]">*</div></label>
-                        <input type="text" name="post_code"  class="flex px-[15px] py-[15px] rounded-[10px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none" value="{{ $paymentMethods->post_code }}">
+                        <input type="text" name="post_code"  class="flex px-[15px] py-[15px] rounded-[10px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none" value="{{ $paymentMethods->post_code }}" @if($id>0) disabled @endif>
                     </div>
                 </div>
             </div>
@@ -73,7 +77,7 @@
                 <div class="flex flex-wrap gap-x-[20px] gap-y-[30px] w-[100%] ">
                     <div class="flex flex-col gap-[10px] w-[100%] ">
                         <label for="" class="flex items-center gap-[5px] text-[14] text-[#898989]">Wallet Address <div class="text-[#F23765] mt-[-2px]">*</div></label>
-                        <input type="text" name="wallet_address"  class="flex px-[15px] py-[15px] rounded-[10px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none" value="{{ $paymentMethods->wallet_address }}">
+                        <input type="text" name="wallet_address"  class="flex px-[15px] py-[15px] rounded-[10px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none" value="{{ $paymentMethods->wallet_address }}" @if($id>0) disabled @endif>
                     </div>
                 </div>
             </div>
@@ -81,13 +85,13 @@
                 <div class="flex flex-wrap gap-x-[20px] gap-y-[30px] w-[100%] ">
                     <div class="flex flex-col gap-[10px] w-[100%] ">
                         <label for="" class="flex items-center gap-[5px] text-[14] text-[#898989]">Enter Email Address That You Use In Paypal <div class="text-[#F23765] mt-[-2px]">*</div></label>
-                        <input type="email" name="paypal_email"  class="flex px-[15px] py-[15px] rounded-[10px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none" value="{{ $paymentMethods->paypal_email }}">
+                        <input type="email" name="paypal_email"  class="flex px-[15px] py-[15px] rounded-[10px] bg-[#F6F6F6] text-[14px] text-[#4D4D4D] font-[600] hover:outline-none focus:outline-none" value="{{ $paymentMethods->paypal_email }}" @if($id>0) disabled @endif>
                     </div>
                 </div>
             </div>
             <div class="flex gap-[10px] md:gap-[20px] mt-[15px]">
                 @if($id>0)
-                    <div id="paramCheckMessage" class="text-[16px] text-[#f93535] leading-[15px]">ou cannot edit this payment method. If you wish to make any changes, please contact support.</div>
+                    <div id="paramCheckMessage" class="text-[16px] text-[#f93535] leading-[15px]">You cannot edit this payment method. To make any changes, please contact support.</div>
                 @else
                     <button type="submit" class="w-[120px] bg-[#49fb53] px-[10px] py-[11px] w-[100px] rounded-[4px] text-[14px] font-[500] text-[#000] text-center">Save</button>
                 @endif

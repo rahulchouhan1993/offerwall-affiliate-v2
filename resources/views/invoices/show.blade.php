@@ -52,7 +52,7 @@
                                                     <strong>Invoice Due Date</strong> <br />
                                                             {{ date('d M Y',strtotime($invoiceDetails->due_date)) }} <br><br>
                                                     <strong>Invoice Number</strong> <br />
-                                                            {{ env('INVOICE_ALIAS')}}{{ date('Y',strtotime($invoiceDetails->invoice_date)) }}{{ $invoiceDetails->invoice_number }}
+                                                            {{ env('INVOICE_ALIAS')}}-{{ date('Y',strtotime($invoiceDetails->invoice_date)) }}-{{ date('m',strtotime($invoiceDetails->invoice_date)) }}-{{ $invoiceDetails->invoice_number }}
                                                 </div>
                                                 
                                             </td>

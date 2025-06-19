@@ -7,12 +7,63 @@ use App\Models\Invoice;
 use App\Models\Country;
 use Illuminate\Http\Request;
 use Mpdf\Mpdf;
+use Illuminate\Support\Facades\DB;
 class PaymentsController extends Controller
 {
     public function index(){
         $pageTitle = 'Invoices';
-        $allInvoices = Invoice::where('status','!=',4)->where('status','!=',0)->where('user_id',auth()->user()->id)->get();
-        return view('payments.index',compact('pageTitle','allInvoices'));
+
+        $allInvoices = Invoice::query();
+        $allInvoices = $allInvoices
+            ->where('status', '!=', 4)
+            ->where('status','!=',0)
+            ->where('user_id',auth()->user()->id)
+            ->with('invoicedetails')
+            ->orderBy('id', 'DESC')
+            ->get(); // NOW you assign the result
+
+        $allInvoices = $allInvoices->map(function ($invoice) {
+            $total = 0; $totalConv = 0;
+            foreach ($invoice->invoicedetails as $detail) {
+                $priceWithVat = $detail->payout + ($detail->payout * $detail->vat / 100);
+                $total += $priceWithVat;
+                $totalConv+=$detail->conversion;
+            }
+            $invoice->total_price = round($total, 2);
+            $invoice->total_conversion = $totalConv;
+            return $invoice;
+        });
+        
+        $cardData = DB::table('invoices')
+        ->join('invoice_details', 'invoices.id', '=', 'invoice_details.invoice_id')
+        ->select(
+            'invoices.status',
+            DB::raw('COUNT(DISTINCT invoices.id) as total_invoices'),
+            DB::raw('SUM(invoice_details.payout) as total_payout_with_vat'),
+            DB::raw("GROUP_CONCAT(CONCAT(invoices.start_date, ' - ', invoices.end_date) SEPARATOR ', ') as date_ranges")
+        )
+        ->where('invoices.status', 2)
+        ->where('invoices.user_id', auth()->user()->id)
+        ->groupBy('invoices.status') 
+        ->first();
+       
+        if(!empty($cardData->date_ranges)){
+            $rangeArray = array_map('trim', explode(',', $cardData->date_ranges));
+        }
+        $query = DB::table('trackings')
+        ->where('user_id', auth()->user()->id)
+        ->whereNotNull('conversion_id')
+        ->whereNotNull('click_id')
+        ->whereIn('status', [1]);
+        if(!empty($cardData->date_ranges)){
+            foreach ($rangeArray as $range) {
+                [$start, $end] = array_map('trim', explode(' - ', $range));
+                $query->whereNotBetween('click_time', [$start, $end]);
+            }
+        }
+        $totalPendingPayout = $query->sum('payout');
+
+        return view('payments.index',compact('pageTitle','allInvoices','cardData','totalPendingPayout'));
     }
 
     public function paymentMethods(Request $request){
